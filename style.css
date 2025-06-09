@@ -1,0 +1,1130 @@
+/* ======================================
+   1. 전체 레이아웃 및 기본 설정
+====================================== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  background: #ffffff;
+  font-family: 'Pretendard', sans-serif;
+}
+
+/* body에만 필요한 스타일 */
+body {
+  background-size: cover;
+  max-height: 100dvh;
+}
+
+body.dark-mode {
+  background-color: #1e1e1e;
+}
+
+@media (max-width: 768px) {
+  html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    font-size: 14px !important;
+  }
+
+  body {
+    background-attachment: scroll;
+  }
+}
+
+
+#game-wrapper {
+  width: 430px;
+  height: auto; /* ✅ 콘텐츠에 맞게 자동으로 */
+  max-height: 100dvh;
+  aspect-ratio: 430 / 932;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+#bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;               /* 부모 기준 */
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+#notification-popup {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  max-width: 90%;
+  z-index: 100;
+  display: none;
+}
+
+/* ======================================
+   2. 카카오톡 채팅창 스타일
+====================================== */
+
+#kakao-chat-wrapper {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 70%;  /* 혹은 적절한 값 */
+  z-index: 2;
+  pointer-events: none; /* 클릭 방지 */
+}
+
+.kakao-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+/* 오버레이는 맨 아래 */
+#kakao-overlay {
+  display: none;  /* 처음엔 숨겨둬 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+}
+
+/* 채팅창은 오버레이 안쪽에 맞춰서 */
+#kakao-chat-box {
+  position: absolute;
+  top: 74px;
+  left: 28px;
+  right: 28px;
+  height: 319px;
+  max-height: 319px;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+#kakao-chat-box::-webkit-scrollbar {
+  display: none;
+}
+
+.kakao-msg {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+@media (max-width:768px) {
+  .kakao-msg {
+       font-size: 14px !important;
+    padding: 10px 14px !important;
+  }
+}
+
+.kakao-msg.left {
+  background: #ffffff;
+  color: #000;
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+  text-align: left;
+}
+.kakao-msg.right {
+  background: #4da5ff;
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 2px;
+  text-align: left;
+}
+
+.kakao-msg.pink-message {
+  background: #fcd6e0 !important;
+  color: #000 !important;
+  
+}
+
+.kakao-name {
+  font-size: 12px;
+  margin-bottom: 2px;
+  opacity: 0.7;
+}
+
+.msg-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+
+/* ======================================
+   3. 시스템 메시지
+====================================== */
+.system-msg {
+  display: block;
+  width: fit-content;
+  margin: 10px auto;
+  background: #d3dbe3;
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 20px;
+  text-align: center;
+  white-space: pre-line;
+}
+
+
+/* ======================================
+   4. 미연시 고정 대사 (하단 말풍선)
+====================================== */
+#talk-wrapper {
+  position: absolute;
+  bottom: 5px !important;
+  left: 50%;
+  transform: translateX(-50%);
+
+  border-radius: 0px;
+  padding: 14px 20px;
+
+  font-size: 16px;
+  max-width: 90%;
+}
+
+.visual-dialogue {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  font-family: 'Pretendard', sans-serif;
+  z-index: 10;
+  display: none;
+  background: none;
+  box-shadow: none;
+}
+
+
+.dialogue-name {
+  position: absolute;
+  top: -6px;
+  left: 5;
+  background-color: #333;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: bold;
+  border: 2px solid white; /* 스티커처럼 보이게 */
+  z-index: 2;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  min-width: 70px; /* 원하는 만큼 넓게 설정 */
+  text-align: center; /* 텍스트 가운데 정렬 유지 */
+}
+
+
+.dialogue-bubble {
+  background: white;
+  border-radius: 0 12px 12px 12px;
+  padding: 23px 20px 22px 20px;
+  font-size: 15px;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  line-height: 1.75;
+  min-height: 80px;
+  position: relative;
+  white-space: pre-line;
+}
+
+.dialogue-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  width: 18px;
+  height: 18px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/9/9d/Arrow-down.svg') no-repeat center center;
+  background-size: contain;
+  opacity: 0.6;
+  animation: blink 1s infinite;
+}
+
+/* 애니메이션 정의 */
+@keyframes blink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0; }
+}
+
+
+
+/* ======================================
+   5. 선택지 버튼
+====================================== */
+#choice-container {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  z-index: 3;
+}
+
+.choice-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+/* ======================================
+   6. 카카오톡 링크 미리보기 카드
+====================================== */
+.link-preview {
+  background: none !important;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 205px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;  /* ✅ 전체 폰트 크기 줄이기 (기본이 14~15px일 가능성 높음) */
+}
+.preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+.preview-img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+.preview-text {
+  padding: 6px 12px 10px;
+  text-align: center;
+}
+.preview-text strong {
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 4px 0;
+  display: block;
+  line-height: 1.4;
+}
+.preview-text p {
+  font-size: 11px;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
+}
+.preview-button {
+  margin-top: 10px;
+  background: #f1f1f5;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #222;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+.preview-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-top: 1px solid #eee;
+  background: #f9f9f9;
+  font-size: 11px;
+  color: #555;
+  cursor: pointer;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  justify-content: space-between; /* 아이콘 - 텍스트 - 화살표 간 균형 */
+}
+
+.footer-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.footer-label {
+  flex-grow: 1;
+  text-align: center;
+  padding-right: 13px;
+}
+.footer-arrow {
+  margin-left: auto;
+  font-weight: bold;
+  opacity: 0.4;
+}
+.kakao-msg.link-preview {
+  padding: 0 !important;
+  background: none !important;
+  max-width: unset !important;
+}
+
+/* ======================================
+   8. 오버레이 이미지
+====================================== */
+
+#overlay-image {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  max-height: 90vh; /* ✅ 추가! 화면보다 안 커지도록 */
+  height: auto;
+  width: auto;
+  z-index: 30;
+}
+
+/* ======================================
+   9. 정답입력창
+====================================== */
+#answer-ui {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 30;
+  width: calc(100% - 40px);  /* ✅ 좌우 여백 포함! */
+  max-width: 460px;
+  box-sizing: border-box;    /* ✅ padding 포함해서 width 계산 */
+}
+
+#answer-input {
+  border: none;
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin: 0 10px;
+  font-size: 16px;
+  width: 100%;
+  background: #fff;
+  flex-grow: 1;
+}
+
+#hint-button,
+#submit-answer {
+  background: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+/* ✅ 힌트 사용 확인창 스타일 */
+#hint-confirm {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  min-height: 160px;
+  max-height: 280px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  padding: 24px 20px;
+  text-align: center;
+  z-index: 9999;
+  pointer-events: auto;
+  overflow-y: auto;
+}
+
+#hint-confirm .hint-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+#hint-confirm .hint-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+}
+
+#hint-confirm .hint-sub {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+#hint-confirm .hint-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+#hint-confirm .hint-buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#hint-confirm .hint-buttons button:first-child {
+  background: #eee;
+  color: #000;
+}
+
+#hint-confirm .hint-buttons button:last-child {
+  background: #000;
+  color: #fff;
+}
+
+#wrong-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(100, 100, 100, 0.85);  /* 회색 배경 */
+  color: white;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  z-index: 9999;
+
+  opacity: 0;                    /* 초기값: 안 보이게 */
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  display: block;               /* ✅ 항상 렌더됨 */
+}
+#wrong-message.visible {
+  opacity: 1;                    /* 트렌지션용 변경 */
+  pointer-events: auto;
+}
+
+
+
+
+.hint-sub .final-answer {
+  font-size: 27px;
+  font-weight: bold;
+  color: #111;
+}
+
+#slot-choice-popup,
+#save-slot-ui {
+  z-index: 2000 !important;
+}
+
+.menu-btn {
+  width: 86px;
+  height: 86px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 16px;
+  background: white;
+  font-size: 13px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  box-sizing: border-box;
+}
+.menu-btn img {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.menu-btn span {
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.skip-btn {
+  position: absolute;
+  top: -33px;       /* 말풍선 바깥 위로 살짝 띄움 */
+  right: 0px;      /* 말풍선 바깥 오른쪽으로 살짝 띄움 */
+  font-size: 12px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.7); /* ✅ 반투명 흰색 */
+  border: 1px solid rgba(0, 0, 0, 0.15); /* ✅ 흐린 테두리 */
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(3px); /* ✅ 흐림 효과 (지원되는 브라우저일 경우) */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ✅ 부드러운 그림자 */
+  transition: background 0.2s ease;
+}
+.skip-btn:hover {
+  background: rgba(255, 255, 255, 0.9); /* 🟢 호버 시 더 뚜렷한 흰색 */
+}
+/* 저장 팝업 전체 영역 */
+.save-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: transparent;
+}
+
+/* 팝업 자체 박스 */
+.save-popup-box {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  width: 320px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+/* 팝업 제목 */
+.save-popup-title {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* 팝업 설명 */
+.save-popup-desc {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+/* 저장 슬롯 버튼 그룹 */
+.save-slot-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 닫기 버튼 */
+.save-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}
+
+.save-popup-close img {
+  width: 20px;
+}
+
+/* 저장 슬롯 버튼을 시작팝업과 동일한 스타일로 */
+.save-slot-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #4da5ff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.save-slot-btn:hover {
+  background: #3b8dd8;
+}
+
+/* 저장 버튼 (좌상단) */
+.save-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 5000;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  display: none; /* 기본은 숨김 */
+}
+
+.flex-visible {
+  display: flex !important;
+}
+.block-visible {
+  display: block !important;
+}
+
+/* 팝업 메시지 박스 */
+.popup-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  display: none;             /* 기본 숨김 */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* 팝업 내부 텍스트 */
+.popup-message-text {
+  margin-bottom: 12px;
+}
+
+/* 닫기 버튼 */
+.popup-message-close {
+  padding: 6px 14px;
+  border: none;
+  background: #eee;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* 예: 팝업을 보이게 할 때 추가할 클래스 */
+.popup-message.active {
+  display: flex;
+}
+
+/* 인트로 화면 */
+#intro-screen {
+  width: 430px;
+  height: 100dvh;
+  aspect-ratio: 430 / 932;
+  max-width: 100vw;
+  margin: 0 auto;
+  position: relative;
+  background: url('images/title_bg.png') no-repeat center center;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.96);
+  overflow: hidden;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+/* 인트로 버튼 */
+.intro-button {
+  width: 220px;
+  height: auto;
+  cursor: pointer;
+  z-index: 2;
+}
+/* ────────────── 메인 시작 화면 ────────────── */
+#main-start-screen {
+  width: 430px;
+  height: 100dvh;
+  aspect-ratio: 430 / 932;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+}
+
+/* ────────────── 배경 비디오 ────────────── */
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* 하단 슬라이드 메뉴 래퍼 */
+#bottom-menu {
+  position: absolute;        /* 📌 상대 위치 지정 */
+  top: 60px;                /* 🎯 레벨바 바로 아래에 오도록 */
+  left: 45%;
+  transform: translateX(-50%);
+  width: fit-content;        /* 메뉴 너비에 맞게 조절 */
+  padding: 0px;
+  background: none; 
+  border-radius: 0;
+  box-shadow: none; 
+  z-index: 10;
+}
+
+/* ───── 상단 핸들바 ───── */
+.handle-bar {
+  width: 40px;
+  height: 4px;
+  background: #ccc;
+  border-radius: 2px;
+  margin: 6px auto;
+  cursor: pointer;
+}
+
+/* ───── 메뉴 그리드 ───── */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 👉 한 줄에 4개 정렬 */
+  gap: 12px;
+}
+
+/* ───── 카드 버튼 ───── */
+.card-button {
+  width: 65px;
+  height: 65px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);                      /* ✅ 하얀 테두리 */
+  background: rgba(255, 255, 255, 0.25);            /* ✅ 반투명 배경 */
+  backdrop-filter: blur(10px);                     /* ✅ 유리처럼 흐림 효과 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  text-align: center;
+  gap: 4px;
+  padding: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);            /* 선택 사항 */
+}
+.card-button img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+/* ───── 시작 버튼 이미지 ───── */
+.start-button {
+  width: 220px;
+  height: auto;
+  cursor: pointer;
+  margin-bottom: 1px;
+  position: relative;
+}
+
+/* ───── 레벨 박스 ───── */
+.level-box {
+  position: fixed;
+ bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 14px;
+  padding: 18px 22px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  box-sizing: border-box;
+  font-family: 'Apple SD Gothic Neo', sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+.level-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #444;
+}
+.level-box-label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.level-tag {
+  font-size: 12px;
+  background: #f9bfe6;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.level-progress {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #fce4f4;
+  overflow: hidden;
+}
+.level-fill {
+  width: 99%;
+  height: 100%;
+  background: #f678de;
+  transition: width 0.4s ease;
+}
+
+/* ───── 시작 선택 팝업 ───── */
+#start-choice-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  background: transparent;
+}
+.popup-inner {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  width: 320px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  text-align: center;
+}
+.popup-close, .popup-back {
+  position: absolute;
+  top: 12px;
+  cursor: pointer;
+}
+.popup-close {
+  right: 12px;
+}
+.popup-back {
+  left: 12px;
+  display: none;
+}
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.slot-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 요소 숨김 */
+.hidden {
+  display: none !important;
+}
+/* 비활성(투명도 + 클릭 차단) */
+.disabled {
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+
+/* 시작 선택 팝업 전체 */
+#start-choice-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;                /* 필요할 때 JS로 block 또는 flex로 바꿔주세요 */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+/* 팝업 내부 박스 */
+#start-choice-popup .popup-inner {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px;
+  width: 320px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* 닫기/뒤로가기 버튼 공통 */
+#start-choice-popup .popup-close,
+#start-choice-popup .popup-back {
+  position: absolute;
+  top: 16px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+#start-choice-popup .popup-close {
+  right: 16px;
+}
+#start-choice-popup .popup-back {
+  left: 16px;
+}
+#start-choice-popup .popup-close img,
+#start-choice-popup .popup-back img {
+  width: 100%;
+  height: auto;
+}
+
+/* 메인 옵션 영역 */
+#start-choice-popup #main-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+#start-choice-popup #main-options .icon {
+  font-size: 24px;
+}
+#start-choice-popup #main-options .title {
+  font-weight: bold;
+}
+#start-choice-popup #main-options .subtitle {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.4;
+}
+
+/* 버튼 그룹 스타일 */
+#start-choice-popup .popup-buttons,
+#start-choice-popup .slot-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+#start-choice-popup button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #4da5ff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .2s;
+}
+#start-choice-popup button:hover {
+  background: #3b8dd8;
+}
+
+/* 슬롯 선택 영역 (기본 숨김) */
+#start-choice-popup #slot-options {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.wrong-msg {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.wrong-msg.visible {
+  opacity: 1;
+}
+
+.btn-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.btn-enabled {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet {
+  position: fixed;
+  left: 0;
+  bottom: -100%;              /* ✅ 처음엔 화면 밖에 숨겨져 있음 */
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 430px;  
+  height: 70vh;               /* ✅ 전체 화면의 70% 차지 */
+  background: white;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  transition: bottom 0.3s ease-in-out;
+  z-index: 2000;
+  
+}
+
+.bottom-sheet.show {
+  bottom: 0;                  /* ✅ 나타날 때 위로 슬라이드됨 */
+}
+
+.bottom-sheet-content {
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+}

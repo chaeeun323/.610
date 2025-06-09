@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta name="viewport" content="width=430, user-scalable=no">
+  <meta charset="UTF-8">
+  <title>카톡 & 말풍선 분기 시스템</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="selectnone.css">  
+  
+</head>
+
+
+<body>
+<div id="game-wrapper">
+<button id="save-btn" class="save-btn">저장</button>
+<video id="bg-video" autoplay muted loop playsinline></video>
+  <div id="dialogue-stack">
+    <img id="notification-popup" src="images/yoo-notice.png" style="display: none;" />
+	
+  <!-- ✅ 카카오 오버레이 + 채팅창 묶기 -->
+<div class="kakao-wrapper">
+
+  <img id="kakao-overlay" src="images/chat.png" alt="카카오 오버레이">
+  <div id="kakao-chat-box"></div>
+</div>
+
+  <div id="talk-wrapper" class="visual-dialogue" style="display:none;">
+    <div class="dialogue-name"></div>
+    <div class="dialogue-bubble"></div>
+  </div>
+
+  <div id="choice-container" style="display:none;"></div>
+  <!-- ✅ 오버레이 이미지 -->
+<img id="overlay-image" src="" style="display: none;" />
+  <!-- ✅ 정답 입력 UI -->
+  <div id="answer-ui" style="display:none;">
+    <button id="hint-button">🔑 힌트</button>
+    <input id="answer-input" type="text" placeholder="정답을 입력해주세요.">
+    <button id="submit-answer">⬆</button>
+  </div>
+<!-- 힌트 확인 팝업 -->
+<div id="hint-confirm" style="display: none;">
+  <div class="hint-icon">🔑</div>
+  <div class="hint-title">힌트를 사용하시겠습니까?</div>
+  <div class="hint-sub">힌트 사용 여부는<br>게임에 영향을 줄 수 있습니다.</div>
+  <div class="hint-buttons">
+    <button id="hint-cancel">취소</button>
+    <button id="hint-ok">힌트 보기</button>
+  </div>
+</div>
+
+  <!-- ✅ 오답 알림 메시지 -->
+  <div id="wrong-message" style="display:none;">오답입니다</div>
+</div>
+
+<!-- ✅ 메인 스크립트 실행 -->
+<script type="module" src="main.js"></script>
+</body>
+</html>
