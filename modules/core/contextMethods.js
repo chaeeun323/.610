@@ -1,6 +1,5 @@
-// Collection of shared utility methods that will be attached to the context
-// object. These helpers provide UI updates, background changes, and other
-// high-level game actions.
+// 컨텍스트 객체에 부착되는 공용 메서드 모음이다.
+// UI 갱신, 배경 변경 등 게임 전반의 동작을 돕는다.
 
 import { updateLevelBar, createLevelBox } from '../ui/levelBarManager.js';
 import {

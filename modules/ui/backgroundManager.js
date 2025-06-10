@@ -1,4 +1,4 @@
-// Functions for managing background image/video transitions.
+// 배경 이미지와 비디오 전환을 관리한다.
 
 export function changeBackgroundInstant(imageUrl, gameWrapper) {
     if (!gameWrapper || !imageUrl) return;

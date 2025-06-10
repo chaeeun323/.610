@@ -1,5 +1,5 @@
-// Combines individual dialogue scripts and provides helpers for retrieving
-// the last image shown or other dialogue-related utilities.
+// 여러 대화 스크립트를 합치고 마지막 이미지 등
+// 대화 관련 정보를 가져오는 헬퍼 함수를 제공한다.
 
 import { dialogueDay0Part0 }    from '../../data/dialogues/dialogue-day0-0.js';
 import { dialogueDay0Part1 }    from '../../data/dialogues/dialogue-day0-1.js';

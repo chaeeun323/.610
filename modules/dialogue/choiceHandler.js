@@ -1,5 +1,4 @@
-// Renders dialogue choices and attaches click listeners that progress the
-// story based on the user's selection.
+// 대화 중 선택지를 표시하고 사용자의 선택에 따라 진행을 이어간다.
 
 import { autoUpdateSkipButton } from '../ui/control/skipButtonController.js';
 export function renderChoiceButtons(choices, container, context) {

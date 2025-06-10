@@ -1,4 +1,4 @@
-// Provides save/load utilities for exporting and restoring game state.
+// 게임 상태를 저장하고 불러오는 기능을 제공한다.
 
 export function buildSaveData(context) {
   let lastImage = null, lastImageIndex = -1;

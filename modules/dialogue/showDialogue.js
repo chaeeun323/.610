@@ -1,5 +1,5 @@
-// Core routine responsible for displaying dialogue entries, changing
-// backgrounds, and managing branching choices.
+// 대사를 화면에 출력하고 배경 전환,
+// 분기 선택 등을 처리하는 핵심 루틴이다.
 
 import { renderChoiceButtons, attachChoiceListener } from './choiceHandler.js'; // 같은 폴더
 import { sendKakao, toggleKakaoDisplay, scrollToBottom } from '../kakao/kakaoMessageManager.js';

@@ -1,5 +1,5 @@
-// Handles skipping dialogue blocks and jumping to the next meaningful
-// interaction when skip mode is active.
+// 스킵 모드가 활성화되었을 때 대사를 건너뛰고
+// 다음 상호작용 지점으로 이동한다.
 
 export function jumpToNextInterrupt(context) {
   const {

@@ -1,4 +1,4 @@
-// Builds the intro/start screen elements and wires up initial game controls.
+// 인트로 화면 요소를 만들고 초기 게임 컨트롤을 연결한다.
 
 
 import { updateLevelBar } from './levelBarManager.js';

@@ -1,4 +1,4 @@
-// Controls enabling/disabling of the skip button based on game state.
+// 게임 상태에 따라 스킵 버튼 활성화 여부를 제어한다.
 
 
 export function autoUpdateSkipButton(context) {

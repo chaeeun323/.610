@@ -1,5 +1,5 @@
-// Core context aggregates DOM references, game state, and shared methods
-// to provide a centralized object used throughout the application.
+// 게임 전역 컨텍스트를 구성한다.
+// DOM 참조와 상태, 공용 메서드를 한데 모아 모든 모듈이 사용한다.
 import domRefs from './domRefs.js';
 import state from './state.js';
 import buildMethods from './contextMethods.js';

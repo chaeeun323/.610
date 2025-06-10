@@ -1,5 +1,5 @@
-// Utilities for rendering and managing Kakao-style chat messages and
-// related UI behaviors.
+// 카카오톡 스타일의 채팅 메시지를 렌더링하고
+// 관련 UI 동작을 관리한다.
 
 export function addKakaoMessage(
   name,

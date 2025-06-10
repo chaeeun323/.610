@@ -1,5 +1,5 @@
-// Handles various user input events and ties them to dialogue progression
-// and UI interactions.
+// 사용자 입력 이벤트를 처리하여 대사 진행과
+// UI 상호작용을 연결한다.
 
 import { showDialogue } from '../dialogue/showDialogue.js';
 import { autoUpdateSkipButton } from '../ui/control/skipButtonController.js';

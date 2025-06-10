@@ -1,4 +1,4 @@
-// Handles creation and visibility toggling of in-game popup messages.
+// 인게임 팝업 생성과 노출 제어를 담당한다.
 
 /**
  * 일반 텍스트 팝업 표시

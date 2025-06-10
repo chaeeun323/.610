@@ -1,4 +1,4 @@
-// Reactive state object holding various game flags and references.
+// 게임 진행에 사용되는 플래그와 참조를 담는 반응형 상태 객체.
 
 let _currentDialogue = [];
 

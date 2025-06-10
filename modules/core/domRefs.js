@@ -1,4 +1,4 @@
-// Centralized DOM element references used by other modules.
+// 여러 모듈에서 공유하는 DOM 요소 참조 모음이다.
 
 const domRefs = {
   gameWrapper: null,

@@ -1,5 +1,5 @@
-// Entry point for initializing the game application. Sets up listeners,
-// handles intro screen logic and manages save/load operations.
+// 게임 초기화를 담당하는 진입점이다.
+// 이벤트 리스너 설정과 인트로 화면, 저장/불러오기 로직을 관리한다.
 
 import { attachMessageListeners, setupDialogueClickHandler } from '../input/inputHandlers.js';
 import { createIntroScreen } from '../ui/introScreenManager.js';
