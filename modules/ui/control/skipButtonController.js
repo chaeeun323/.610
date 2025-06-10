@@ -39,7 +39,8 @@ export function ensureSkipButton(context) {
     context.skipBtn = skipBtn;
   }
 
-  context.skipBtn.addEventListener('click', () => {
+  context.skipBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     context.skipModeRef.value = true;
     context.jumpToNextInterrupt(context);
   });
