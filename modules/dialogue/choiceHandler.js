@@ -10,7 +10,7 @@ export function renderChoiceButtons(choices, container, context) {
     btn.className = 'choice-btn';
     btn.dataset.branch = JSON.stringify(choice.branch);
     btn.textContent = choice.text;
-    btn.style.animationDelay = `${idx * 0.2}s`;
+    btn.style.animationDelay = `${idx * 0.25}s`;
     container.appendChild(btn);
   });
 
@@ -71,6 +71,6 @@ export function attachChoiceListener(container, context, showDialogue) {
       context.kakaoOverlay.style.display = 'block';
       showDialogue(idx, context);
       window.suppressClick = false;
-    }, 300);
+    }, 400);
   });
 }

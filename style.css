@@ -303,18 +303,18 @@ body.dark-mode {
   font-size: 14px;
   opacity: 0;
   transform: translateY(-10px);
-  animation: choice-slide-in 0.5s forwards;
-  transition: transform 0.3s, opacity 0.3s;
+  animation: choice-slide-in 0.7s forwards;
+  transition: transform 0.4s, opacity 0.4s;
 }
 
 .choice-btn.choice-selected {
-  transform: scale(1.05);
+  transform: scale(1.1);
   z-index: 1;
 }
 
 .choice-btn.choice-fade {
   opacity: 0;
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
 
 @keyframes choice-slide-in {
