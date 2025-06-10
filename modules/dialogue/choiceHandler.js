@@ -10,7 +10,7 @@ export function renderChoiceButtons(choices, container, context) {
     btn.className = 'choice-btn';
     btn.dataset.branch = JSON.stringify(choice.branch);
     btn.textContent = choice.text;
-    btn.style.animationDelay = `${idx * 0.1}s`;
+    btn.style.animationDelay = `${idx * 0.2}s`;
     container.appendChild(btn);
   });
 
@@ -37,9 +37,14 @@ export function attachChoiceListener(container, context, showDialogue) {
     }
     if (!Array.isArray(branch)) return;
 
-    container.style.display = 'none';
-    context.kakaoBox.style.display = 'block';
-    context.kakaoOverlay.style.display = 'block';
+    const buttons = Array.from(container.querySelectorAll('.choice-btn'));
+    buttons.forEach(b => {
+      if (b === btn) {
+        b.classList.add('choice-selected');
+      } else {
+        b.classList.add('choice-fade');
+      }
+    });
 
     const rest = context.currentDialogue.slice(context.indexRef.value + 1);
     const updated = [
@@ -61,8 +66,11 @@ export function attachChoiceListener(container, context, showDialogue) {
     context.indexRef.value = idx;
 
     setTimeout(() => {
+      container.style.display = 'none';
+      context.kakaoBox.style.display = 'block';
+      context.kakaoOverlay.style.display = 'block';
       showDialogue(idx, context);
       window.suppressClick = false;
-    }, 0);
+    }, 300);
   });
 }
