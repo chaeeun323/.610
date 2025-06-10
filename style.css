@@ -909,7 +909,7 @@ body.dark-mode {
 
 #intro-bubble {
   position: absolute;
-  bottom: 220px;
+  bottom: 250px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.95);
@@ -923,12 +923,12 @@ body.dark-mode {
 
 #intro-bubble.show {
   display: block;
-  animation: bubble-smoke 1s forwards;
+  animation: bubble-smoke 1.5s forwards;
 }
 
 @keyframes bubble-smoke {
   from { opacity: 1; transform: translateX(-50%) translateY(0); }
-  to { opacity: 0; transform: translateX(-50%) translateY(-40px); }
+  to { opacity: 0; transform: translateX(-50%) translateY(-80px); }
 }
 
 /* ───── 레벨 박스 ───── */
