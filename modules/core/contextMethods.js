@@ -40,6 +40,7 @@ export default function buildMethods(context) {
     clearBackground,
     showDialogue,
     jumpToNextInterrupt,
+    autoUpdateSkipButton,
     setNotificationActive: (val) => {
       context.notificationActive = val;
       autoUpdateSkipButton(context);
