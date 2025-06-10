@@ -27,3 +27,20 @@ export function updateSkipButton(enabled, context) {
   btn.classList.toggle('btn-enabled', enabled);
   btn.classList.toggle('btn-disabled', !enabled);
 }
+
+export function ensureSkipButton(context) {
+  if (!context.skipBtn) {
+    const skipBtn = document.createElement('button');
+    skipBtn.id = 'skip-button';
+    skipBtn.textContent = '⏩ 스킵';
+    skipBtn.classList.add('skip-btn');
+    skipBtn.style.display = 'none';
+    document.body.appendChild(skipBtn);
+    context.skipBtn = skipBtn;
+  }
+
+  context.skipBtn.addEventListener('click', () => {
+    context.skipModeRef.value = true;
+    context.jumpToNextInterrupt(context);
+  });
+}
