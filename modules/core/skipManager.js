@@ -39,6 +39,7 @@ if (context.overlayImage) context.overlayImage.style.display = 'none';
       if (isInterrupt) {
         skipModeRef.value = false;
         showDialogue(indexRef.value, context);
+        context.suppressClick = false;
         return;
       }
 
@@ -68,6 +69,7 @@ if (context.overlayImage) context.overlayImage.style.display = 'none';
       showDialogue(indexRef.value, context);
     }
     skipModeRef.value = false;
+    context.suppressClick = false;
   }
 
   skipNext();
