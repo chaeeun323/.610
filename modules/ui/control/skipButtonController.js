@@ -40,7 +40,9 @@ export function ensureSkipButton(context) {
   }
 
   context.skipBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    context.suppressClick = true;
     context.skipModeRef.value = true;
     context.jumpToNextInterrupt(context);
   });
