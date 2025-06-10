@@ -122,18 +122,10 @@ setTimeout(() => {
     const i = context.indexRef?.value ?? 0;
     updateLevelBar(i, context.currentDialogue || []);
 
-    const first = context.currentDialogue[i];
-    const alreadyDrawn =
-      (first.kakao || first.system || first.talk) &&
-      (
-        context.kakaoBox.innerHTML.includes(first.text) ||
-        context.bubbleEl.textContent.includes(first.text)
-      );
-
-    if (!alreadyDrawn) {
+    if (!context.isRestored) {
       showDialogue(i, context);
     } else {
-      console.log("🔁 대사 중복 출력 방지됨:", first.text);
+      context.isRestored = false;
     }
 
     if (context.skipBtn) context.skipBtn.style.display = 'block';

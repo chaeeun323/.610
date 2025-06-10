@@ -56,22 +56,13 @@ window.addEventListener('load', () => {
       context.indexRef.value >= 0 &&
       context.indexRef.value < context.currentDialogue.length
     ) {
-      const first = context.currentDialogue[context.indexRef.value];
-      const textExists = (() => {
-        if (first.kakao || first.system || first.talk) {
-          const text = first.text?.replace(/\s+/g, '');
-          const content = context.kakaoBox.innerHTML.replace(/\s+/g, '');
-          return text && content.includes(text);
-        }
-        return false;
-      })();
-
-      if (!textExists) {
+      if (!context.isRestored) {
         showDialogue(context.indexRef.value, context);
       }
 
       context.scrollToBottom(context.kakaoBox);
       context.saveLoaded = false;
+      context.isRestored = false;
     } else {
       context.indexRef.value = 0;
       if (context.currentDialogue.length > 0) {
