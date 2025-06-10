@@ -5,11 +5,12 @@ export function renderChoiceButtons(choices, container, context) {
   console.log("🟡 선택지 생성 시작", choices);
   container.innerHTML = '';
 
-  choices.forEach(choice => {
+  choices.forEach((choice, idx) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
     btn.dataset.branch = JSON.stringify(choice.branch);
     btn.textContent = choice.text;
+    btn.style.animationDelay = `${idx * 0.1}s`;
     container.appendChild(btn);
   });
 
