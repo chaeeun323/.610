@@ -1,4 +1,4 @@
-import { downloadSave } from '../../save/saveManager.js';
+import { saveToLocal } from '../../save/saveManager.js';
 
 export function setupSavePopup(context) {
   const savePopup = document.createElement('div');
@@ -47,7 +47,8 @@ export function setupSavePopup(context) {
     btn.onclick = (e) => {
       e.stopPropagation();
       const slot = btn.dataset.slot;
-      downloadSave(slot, context, context.showPopup);
+      saveToLocal(slot, context);
+      context.showPopup(`슬롯 ${slot}에 저장되었습니다.`);
       savePopup.style.display = 'none';
     };
   });
