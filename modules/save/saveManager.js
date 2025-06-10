@@ -1,4 +1,5 @@
-// modules/save/saveManager.js
+// Provides save/load utilities for exporting and restoring game state.
+
 export function buildSaveData(context) {
   let lastImage = null, lastImageIndex = -1;
   let lastVideo = null, lastVideoIndex = -1;

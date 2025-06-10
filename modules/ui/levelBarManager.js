@@ -1,3 +1,5 @@
+// Calculates experience progression and updates the on-screen level bar.
+
 export function updateLevelBar(index, currentDialogue) {
   if (!currentDialogue || !Array.isArray(currentDialogue)) return;
   const MAX_LEVEL = 10;

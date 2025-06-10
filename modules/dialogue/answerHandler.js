@@ -1,4 +1,6 @@
-// 📁 answerHandler.js
+// Manages the answer input UI and hint system logic for interactive
+// dialogue sequences.
+
 
 export function showAnswerInput(correctAnswer, context) {
 const ui = context.answerUi;

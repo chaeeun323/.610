@@ -1,3 +1,6 @@
+// Core routine responsible for displaying dialogue entries, changing
+// backgrounds, and managing branching choices.
+
 import { renderChoiceButtons, attachChoiceListener } from './choiceHandler.js'; // 같은 폴더
 import { sendKakao, toggleKakaoDisplay, scrollToBottom } from '../kakao/kakaoMessageManager.js';
 import { updateLevelBar } from '../ui/levelBarManager.js';

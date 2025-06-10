@@ -1,3 +1,5 @@
+// Functions for managing background image/video transitions.
+
 export function changeBackgroundInstant(imageUrl, gameWrapper) {
     if (!gameWrapper || !imageUrl) return;
     gameWrapper.style.background = `url('${imageUrl}') no-repeat center center`;

@@ -1,3 +1,5 @@
+// Reactive state object holding various game flags and references.
+
 let _currentDialogue = [];
 
 const state = {

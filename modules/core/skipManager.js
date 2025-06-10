@@ -1,4 +1,6 @@
-// 📌 skipManager.js
+// Handles skipping dialogue blocks and jumping to the next meaningful
+// interaction when skip mode is active.
+
 export function jumpToNextInterrupt(context) {
   const {
     currentDialogue,

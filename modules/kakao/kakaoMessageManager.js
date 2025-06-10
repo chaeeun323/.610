@@ -1,3 +1,6 @@
+// Utilities for rendering and managing Kakao-style chat messages and
+// related UI behaviors.
+
 export function addKakaoMessage(
   name,
   text,

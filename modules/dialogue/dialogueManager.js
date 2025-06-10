@@ -1,4 +1,6 @@
-// modules/core/gameFunctions.js
+// Combines individual dialogue scripts and provides helpers for retrieving
+// the last image shown or other dialogue-related utilities.
+
 import { dialogueDay0Part0 }    from '../../data/dialogues/dialogue-day0-0.js';
 import { dialogueDay0Part1 }    from '../../data/dialogues/dialogue-day0-1.js';
 import { dialogueDay0Part2 }    from '../../data/dialogues/dialogue-day0-2.js';

@@ -1,3 +1,6 @@
+// Handles various user input events and ties them to dialogue progression
+// and UI interactions.
+
 import { showDialogue } from '../dialogue/showDialogue.js';
 import { autoUpdateSkipButton } from '../ui/control/skipButtonController.js';
 

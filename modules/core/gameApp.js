@@ -1,3 +1,6 @@
+// Entry point for initializing the game application. Sets up listeners,
+// handles intro screen logic and manages save/load operations.
+
 import { attachMessageListeners, setupDialogueClickHandler } from '../input/inputHandlers.js';
 import { createIntroScreen } from '../ui/introScreenManager.js';
 import { initHintSystem, showAnswerInput } from '../dialogue/answerHandler.js';

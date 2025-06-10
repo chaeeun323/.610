@@ -1,3 +1,5 @@
+// Handles creation and visibility toggling of in-game popup messages.
+
 /**
  * 일반 텍스트 팝업 표시
  * @param {HTMLElement} msgBox - 팝업 요소

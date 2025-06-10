@@ -1,3 +1,5 @@
+// Centralized DOM element references used by other modules.
+
 const domRefs = {
   gameWrapper: null,
   kakaoBox: null,

@@ -1,3 +1,7 @@
+// Collection of shared utility methods that will be attached to the context
+// object. These helpers provide UI updates, background changes, and other
+// high-level game actions.
+
 import { updateLevelBar, createLevelBox } from '../ui/levelBarManager.js';
 import {
   sendKakao,

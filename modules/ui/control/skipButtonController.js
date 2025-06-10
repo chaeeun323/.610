@@ -1,4 +1,5 @@
-// ✅ skipButtonController.js
+// Controls enabling/disabling of the skip button based on game state.
+
 
 export function autoUpdateSkipButton(context) {
   const {

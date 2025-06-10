@@ -1,4 +1,5 @@
-// introScreenManager.js - hint-button cloneNode 제거 버전 (이벤트 중복 방지)
+// Builds the intro/start screen elements and wires up initial game controls.
+
 
 import { updateLevelBar } from './levelBarManager.js';
 import { scrollToBottom } from '../kakao/kakaoMessageManager.js';
