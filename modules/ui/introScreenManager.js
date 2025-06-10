@@ -34,6 +34,26 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
   startScreen.appendChild(bgVideo);
 
+  const clickArea = document.createElement('div');
+  clickArea.id = 'intro-click-area';
+  startScreen.appendChild(clickArea);
+
+  const bubble = document.createElement('div');
+  bubble.id = 'intro-bubble';
+  startScreen.appendChild(bubble);
+
+  const bubbleMessages = ['심심해', '배고파', '보고싶었어'];
+  clickArea.addEventListener('click', () => {
+    if (bubble.classList.contains('show')) return;
+    const msg = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
+    bubble.textContent = msg;
+    bubble.classList.add('show');
+    bubble.addEventListener('animationend', function handler() {
+      bubble.classList.remove('show');
+      bubble.removeEventListener('animationend', handler);
+    });
+  });
+
   const menuWrapper = document.createElement('div');
   menuWrapper.id = 'bottom-menu';
   const menuGrid = document.createElement('div');

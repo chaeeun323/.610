@@ -898,6 +898,39 @@ body.dark-mode {
   position: relative;
 }
 
+#intro-click-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#intro-bubble {
+  position: absolute;
+  bottom: 220px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 16px;
+  white-space: nowrap;
+  pointer-events: none;
+  display: none;
+}
+
+#intro-bubble.show {
+  display: block;
+  animation: bubble-smoke 1s forwards;
+}
+
+@keyframes bubble-smoke {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to { opacity: 0; transform: translateX(-50%) translateY(-40px); }
+}
+
 /* ───── 레벨 박스 ───── */
 .level-box {
   position: fixed;
