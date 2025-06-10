@@ -923,19 +923,34 @@ body.dark-mode {
 
 #intro-bubble.show {
   display: block;
-  animation: bubble-pop 0.25s ease-out forwards,
-             bubble-smoke 1.5s forwards 0.25s;
+  animation: bubble-pop 0.3s ease-out forwards,
+             bubble-smoke 1.5s forwards 0.3s;
 }
 
 @keyframes bubble-smoke {
-  from { opacity: 1; transform: translateX(-50%) translateY(0); }
-  to { opacity: 0; transform: translateX(-50%) translateY(-80px); }
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.2);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100px) scale(1.2);
+  }
 }
 
 @keyframes bubble-pop {
-  0% { transform: translateX(-50%) scale(0); opacity: 0; }
-  80% { transform: translateX(-50%) scale(1.1); opacity: 1; }
-  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+  0% {
+    transform: translateX(-50%) scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(-50%) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1.2);
+    opacity: 1;
+  }
 }
 
 /* ───── 레벨 박스 ───── */
