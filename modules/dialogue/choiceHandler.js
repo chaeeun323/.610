@@ -4,6 +4,7 @@ import { autoUpdateSkipButton } from '../ui/control/skipButtonController.js';
 export function renderChoiceButtons(choices, container, context) {
   console.log("🟡 선택지 생성 시작", choices);
   container.innerHTML = '';
+  container.classList.remove('closing');
 
   choices.forEach((choice, idx) => {
     const btn = document.createElement('button');
@@ -46,6 +47,8 @@ export function attachChoiceListener(container, context, showDialogue) {
       }
     });
 
+    container.classList.add('closing');
+
     const rest = context.currentDialogue.slice(context.indexRef.value + 1);
     const updated = [
       ...context.currentDialogue.slice(0, context.indexRef.value + 1),
@@ -67,6 +70,7 @@ export function attachChoiceListener(container, context, showDialogue) {
 
     setTimeout(() => {
       container.style.display = 'none';
+      container.classList.remove('closing');
       context.kakaoBox.style.display = 'block';
       context.kakaoOverlay.style.display = 'block';
       showDialogue(idx, context);

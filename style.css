@@ -293,6 +293,12 @@ body.dark-mode {
   z-index: 3;
 }
 
+#choice-container.closing {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
 .choice-btn {
   background: #fff;
   border: 1px solid #ccc;
