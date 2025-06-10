@@ -1,5 +1,7 @@
 // 게임 상태를 저장하고 불러오는 기능을 제공한다.
-import { getCurrentTheme } from '../ui/themeManager.js';
+import { getCurrentTheme, applyTheme } from '../ui/themeManager.js';
+
+export const SAVE_VERSION = 1;
 
 export function buildSaveData(context) {
   let lastImage = null, lastImageIndex = -1;
@@ -22,22 +24,13 @@ export function buildSaveData(context) {
   const currentTheme = getCurrentTheme();
 
   return {
+    version: SAVE_VERSION,
     index: context.indexRef.value,
-    dialogue: JSON.parse(JSON.stringify(context.currentDialogue)),
     lastImage,
     lastImageIndex,
     lastVideo,
     lastVideoIndex,
-    timestamp: new Date().toISOString(),
-    history: context.kakaoBox?.innerHTML || '',
-    choiceHistory: context.choiceContainer?.innerHTML || '',
-    choiceVisible: context.choiceContainer?.style.display || 'none',
-    answerHTML: context.answerContainer?.innerHTML || '',
-    answerVisible: context.answerContainer?.style.display || 'none',
-    overlayImageSrc: context.overlayImage?.src || '',
-    overlayImageVisible: context.overlayImage?.style.display || 'none',
-    overlayHistory: context.kakaoOverlay?.innerHTML || '',
-    theme: currentTheme
+    theme: currentTheme,
   };
 }
 
@@ -57,4 +50,38 @@ export function downloadSave(slotNumber, context, showPopupFn) {
   if (typeof showPopupFn === 'function') {
     showPopupFn(`슬롯 ${slotNumber}에 파일로 저장되었습니다.`);
   }
+}
+
+export function loadSaveData(data, context, dialogue) {
+  if (!data || data.version !== SAVE_VERSION) {
+    return false;
+  }
+
+  if (dialogue) {
+    context.currentDialogue = dialogue;
+  }
+
+  if (data.theme) applyTheme(data.theme);
+
+  context.indexRef.value = data.index ?? 0;
+  context.saveLoaded = true;
+  context.isRestored = true;
+
+  const videoEl = document.getElementById('bg-video');
+  if (data.lastVideo && data.lastVideoIndex > data.lastImageIndex) {
+    if (videoEl) {
+      videoEl.src = data.lastVideo;
+      videoEl.load();
+      videoEl.style.display = 'block';
+    }
+    if (context.gameWrapper) context.gameWrapper.style.background = '';
+  } else if (data.lastImage) {
+    if (context.gameWrapper) {
+      context.gameWrapper.style.background = `url('${data.lastImage}') no-repeat center center`;
+      context.gameWrapper.style.backgroundSize = 'cover';
+    }
+    if (videoEl) videoEl.style.display = 'none';
+  }
+
+  return true;
 }
