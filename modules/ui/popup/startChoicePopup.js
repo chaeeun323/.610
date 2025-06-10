@@ -176,11 +176,11 @@ export function setupStartChoicePopup(context, currentDialogue) {
     startChoicePopup.querySelector(`#slot-${num}`).onclick = () => {
       const parsed = loadFromLocal(num);
       if (!parsed) {
-        alert('저장된 데이터가 없습니다.');
+        context.showPopup('저장된 데이터가 없습니다.');
         return;
       }
       if (typeof parsed.index !== 'number') {
-        alert('저장 데이터가 손상되었습니다.');
+        context.showPopup('저장 데이터가 손상되었습니다.');
         return;
       }
       handleLoadData(parsed);
