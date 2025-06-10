@@ -47,7 +47,10 @@ export function attachChoiceListener(container, context, showDialogue) {
       }
     });
 
-    container.classList.add('closing');
+    // 살짝 확대되는 효과를 볼 수 있도록 약간 지연 후 페이드 아웃
+    setTimeout(() => {
+      container.classList.add('closing');
+    }, 200);
 
     const rest = context.currentDialogue.slice(context.indexRef.value + 1);
     const updated = [
@@ -75,6 +78,6 @@ export function attachChoiceListener(container, context, showDialogue) {
       context.kakaoOverlay.style.display = 'block';
       showDialogue(idx, context);
       window.suppressClick = false;
-    }, 400);
+    }, 600);
   });
 }

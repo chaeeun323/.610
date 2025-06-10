@@ -315,7 +315,7 @@ body.dark-mode {
   opacity: 0;
   transform: translateY(-10px);
   animation: choice-slide-in 0.7s forwards;
-  transition: transform 0.4s, opacity 0.4s;
+  transition: transform 0.2s, opacity 0.4s;
 }
 
 .choice-btn.choice-selected {
