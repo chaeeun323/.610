@@ -10,6 +10,7 @@ import { autoUpdateSkipButton, updateSkipButton } from '../ui/control/skipButton
 import { showPopup, showNotification } from '../ui/popup/popupHandler.js';
 import { downloadSave } from '../save/saveManager.js';
 import { showDialogue } from '../dialogue/showDialogue.js';
+import { applyTheme } from '../ui/themeManager.js';
 
 export default function initGameApp(context) {
 
@@ -139,12 +140,8 @@ reader.onload = (event) => {
       return;
     }
 
-    // ✅ 저장된 테마(dark-mode) 적용
-if (data.theme === 'dark') {
-  document.body.classList.add('dark-mode');
-} else {
-  document.body.classList.remove('dark-mode');
-}
+    // 저장된 테마 적용
+    if (data.theme) applyTheme(data.theme);
 
     context.currentDialogue = data.dialogue;
     context.indexRef.value = data.index;

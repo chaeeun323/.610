@@ -1,4 +1,5 @@
 // 게임 상태를 저장하고 불러오는 기능을 제공한다.
+import { getCurrentTheme } from '../ui/themeManager.js';
 
 export function buildSaveData(context) {
   let lastImage = null, lastImageIndex = -1;
@@ -18,7 +19,7 @@ export function buildSaveData(context) {
     if (lastImage !== null && lastVideo !== null) break;
   }
 
-  const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  const currentTheme = getCurrentTheme();
 
   return {
     index: context.indexRef.value,
