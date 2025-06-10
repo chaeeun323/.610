@@ -4,12 +4,14 @@ import { autoUpdateSkipButton } from '../ui/control/skipButtonController.js';
 export function renderChoiceButtons(choices, container, context) {
   console.log("🟡 선택지 생성 시작", choices);
   container.innerHTML = '';
+  container.classList.remove('closing');
 
-  choices.forEach(choice => {
+  choices.forEach((choice, idx) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
     btn.dataset.branch = JSON.stringify(choice.branch);
     btn.textContent = choice.text;
+    btn.style.animationDelay = `${idx * 0.25}s`;
     container.appendChild(btn);
   });
 
@@ -36,9 +38,19 @@ export function attachChoiceListener(container, context, showDialogue) {
     }
     if (!Array.isArray(branch)) return;
 
-    container.style.display = 'none';
-    context.kakaoBox.style.display = 'block';
-    context.kakaoOverlay.style.display = 'block';
+    const buttons = Array.from(container.querySelectorAll('.choice-btn'));
+    buttons.forEach(b => {
+      if (b === btn) {
+        b.classList.add('choice-selected');
+      } else {
+        b.classList.add('choice-fade');
+      }
+    });
+
+    // 살짝 확대되는 효과를 볼 수 있도록 약간 지연 후 페이드 아웃
+    setTimeout(() => {
+      container.classList.add('closing');
+    }, 200);
 
     const rest = context.currentDialogue.slice(context.indexRef.value + 1);
     const updated = [
@@ -60,8 +72,12 @@ export function attachChoiceListener(container, context, showDialogue) {
     context.indexRef.value = idx;
 
     setTimeout(() => {
+      container.style.display = 'none';
+      container.classList.remove('closing');
+      context.kakaoBox.style.display = 'block';
+      context.kakaoOverlay.style.display = 'block';
       showDialogue(idx, context);
       window.suppressClick = false;
-    }, 0);
+    }, 600);
   });
 }

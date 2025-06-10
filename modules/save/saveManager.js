@@ -41,20 +41,31 @@ export function buildSaveData(context) {
   };
 }
 
-export function downloadSave(slotNumber, context, showPopupFn) {
+export function saveToLocal(slotNumber, context, showPopupFn) {
   const saveData = buildSaveData(context);
-  const saveJson = JSON.stringify(saveData, null, 2);
-  const blob = new Blob([saveJson], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `dialogue-save-slot-${slotNumber}-${new Date().toISOString()}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  try {
+    localStorage.setItem(
+      `save-slot-${slotNumber}`,
+      JSON.stringify(saveData)
+    );
+    if (typeof showPopupFn === 'function') {
+      showPopupFn(`슬롯 ${slotNumber}에 저장되었습니다.`);
+    }
+  } catch (err) {
+    console.error('로컬 저장 실패:', err);
+    if (typeof showPopupFn === 'function') {
+      showPopupFn('저장에 실패했습니다.');
+    }
+  }
+}
 
-  if (typeof showPopupFn === 'function') {
-    showPopupFn(`슬롯 ${slotNumber}에 파일로 저장되었습니다.`);
+export function loadFromLocal(slotNumber) {
+  const data = localStorage.getItem(`save-slot-${slotNumber}`);
+  if (!data) return null;
+  try {
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('로컬 저장 데이터 파싱 실패:', err);
+    return null;
   }
 }
