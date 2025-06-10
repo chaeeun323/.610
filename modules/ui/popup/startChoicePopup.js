@@ -1,6 +1,6 @@
-import { initHintSystem, showAnswerInput } from '../../dialogue/answerHandler.js';
-import { applyTheme } from '../themeManager.js';
+import { initHintSystem } from '../../dialogue/answerHandler.js';
 import { autoUpdateSkipButton } from '../control/skipButtonController.js';
+import { loadSaveData } from '../../save/saveManager.js';
 
 export function setupStartChoicePopup(context, currentDialogue) {
   const startChoicePopup = document.createElement('div');
@@ -68,106 +68,21 @@ export function setupStartChoicePopup(context, currentDialogue) {
   };
 
   const handleLoadData = (data) => {
-    if (data.theme) applyTheme(data.theme);
-    context.currentDialogue = data.dialogue;
-    context.indexRef.value = data.index;
-    context.saveLoaded = true;
-    context.isRestored = true;
-
-    const videoEl = document.getElementById('bg-video');
-    if (data.lastVideoIndex > data.lastImageIndex) {
-      if (videoEl) {
-        videoEl.src = data.lastVideo;
-        videoEl.load();
-        videoEl.style.display = 'block';
-      }
-      if (context.gameWrapper) context.gameWrapper.style.background = '';
-      const startScreen = document.getElementById('main-start-screen');
-      if (startScreen) startScreen.style.background = '';
-      if (context.overlayImage) {
-        context.overlayImage.style.display = 'none';
-        context.overlayImage.src = '';
-      }
-    } else {
-      if (context.gameWrapper) {
-        context.gameWrapper.style.background = `url('${data.lastImage}') no-repeat center center`;
-        context.gameWrapper.style.backgroundSize = 'cover';
-      }
-      if (videoEl) videoEl.style.display = 'none';
-    }
-
-    if (data.overlayImageSrc) {
-      context.overlayImage.src = data.overlayImageSrc;
-      context.overlayImage.style.display = data.overlayImageVisible;
-    }
-
-    if (data.overlayHistory !== undefined && context.kakaoOverlay) {
-      context.kakaoOverlay.innerHTML = data.overlayHistory;
-    }
-
-    if (data.history !== undefined) {
-      context.kakaoBox.innerHTML = data.history;
-      const current = context.currentDialogue[context.indexRef.value];
-      if (current.notification) {
-        if (current.hideKakao) {
-          context.kakaoBox.style.display = 'none';
-          context.kakaoOverlay.style.display = 'none';
-        } else {
-          context.kakaoBox.style.display = 'block';
-          context.kakaoOverlay.style.display = 'block';
-          context.scrollToBottom(context.kakaoBox);
-        }
-      }
-      if (!current.notification) {
-        context.kakaoBox.style.display = 'block';
-        context.kakaoOverlay.style.display = 'block';
-        context.scrollToBottom(context.kakaoBox);
-      }
-    }
-
-    if (data.choiceHistory !== undefined) {
-      context.choiceContainer.innerHTML = data.choiceHistory;
-      context.choiceContainer.style.display = data.choiceVisible;
-      autoUpdateSkipButton(context);
-    }
-
-    if (data.answerVisible && data.answerVisible !== 'none') {
-      context.answerContainer.innerHTML = data.answerHTML;
-      context.answerContainer.style.display = data.answerVisible;
-      const correct = context.currentDialogue[context.indexRef.value].answer;
-      showAnswerInput(correct, context);
-      context.isWaitingForAnswer.value = true;
-      context.suppressClick = true;
-      context.toggleKakaoDisplay(false, context.kakaoBox, context.kakaoOverlay);
-    }
-
-    if (context.currentDialogue[context.indexRef.value].answer) {
-      context.toggleKakaoDisplay(false, context.kakaoBox, context.kakaoOverlay);
-    }
-
-    const first = context.currentDialogue[context.indexRef.value];
-    if (first && first.talk) {
-      context.talkWrapper.style.display = 'block';
-      context.nameEl.textContent = first.name || '';
-      context.bubbleEl.textContent = first.text || '';
-    }
-    if (context.currentDialogue[context.indexRef.value].hideKakao) {
-      context.toggleKakaoDisplay(false, context.kakaoBox, context.kakaoOverlay);
+    if (!loadSaveData(data, context, currentDialogue)) {
+      alert('호환되지 않는 저장 파일입니다.');
+      return;
     }
 
     hidePopup();
     const intro = document.getElementById('intro-screen');
     if (intro) intro.remove();
-    document.getElementById('main-start-screen').style.display = 'flex';
-    document.getElementById('game-wrapper').style.display = 'none';
-    context.updateLevelBar(context.indexRef.value, context.currentDialogue);
-    context.notificationActive = false;
+    document.getElementById('main-start-screen').style.display = 'none';
+    document.getElementById('game-wrapper').style.display = 'block';
+    context.gameStarted = true;
+    if (context.saveBtn) context.saveBtn.style.display = 'block';
+
+    context.showDialogue(context.indexRef.value, context);
     autoUpdateSkipButton(context);
-    context.overlayJustCleared = false;
-    setTimeout(() => {
-      context.suppressClick = false;
-    }, 300);
-    context.preventAutoAdvance.value = false;
     initHintSystem(context);
   };
 
