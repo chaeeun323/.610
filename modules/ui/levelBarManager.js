@@ -1,3 +1,5 @@
+// 경험치 계산과 레벨 바 업데이트를 담당한다.
+
 export function updateLevelBar(index, currentDialogue) {
   if (!currentDialogue || !Array.isArray(currentDialogue)) return;
   const MAX_LEVEL = 10;

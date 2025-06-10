@@ -1,3 +1,6 @@
+// 카카오톡 스타일의 채팅 메시지를 렌더링하고
+// 관련 UI 동작을 관리한다.
+
 export function addKakaoMessage(
   name,
   text,

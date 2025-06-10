@@ -1,4 +1,5 @@
-// introScreenManager.js - hint-button cloneNode 제거 버전 (이벤트 중복 방지)
+// 인트로 화면 요소를 만들고 초기 게임 컨트롤을 연결한다.
+
 
 import { updateLevelBar } from './levelBarManager.js';
 import { scrollToBottom } from '../kakao/kakaoMessageManager.js';

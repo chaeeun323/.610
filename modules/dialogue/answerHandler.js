@@ -1,4 +1,5 @@
-// 📁 answerHandler.js
+// 정답 입력 UI와 힌트 시스템 로직을 관리한다.
+
 
 export function showAnswerInput(correctAnswer, context) {
 const ui = context.answerUi;

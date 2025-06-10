@@ -1,6 +1,10 @@
+// 대사를 화면에 출력하고 배경 전환,
+// 분기 선택 등을 처리하는 핵심 루틴이다.
+
 import { renderChoiceButtons, attachChoiceListener } from './choiceHandler.js'; // 같은 폴더
 import { sendKakao, toggleKakaoDisplay, scrollToBottom } from '../kakao/kakaoMessageManager.js';
 import { updateLevelBar } from '../ui/levelBarManager.js';
+import { applyTheme } from '../ui/themeManager.js';
 import { showNotification } from '../ui/popup/popupHandler.js';
 import {
   changeBackgroundInstant,
@@ -135,11 +139,8 @@ export function showDialogue(i, context) {
   }
 
   updateLevelBar(indexRef.value, context.currentDialogue);
-// ✅ 테마 클래스 처리
-document.body.classList.remove('dark-mode');
-if (d.theme === 'dark') {
-  document.body.classList.add('dark-mode');
-}
+  // 테마 적용 처리
+  if (d.theme) applyTheme(d.theme);
 
   autoUpdateSkipButton(context);
   if (

@@ -1,3 +1,6 @@
+// 컨텍스트 객체에 부착되는 공용 메서드 모음이다.
+// UI 갱신, 배경 변경 등 게임 전반의 동작을 돕는다.
+
 import { updateLevelBar, createLevelBox } from '../ui/levelBarManager.js';
 import {
   sendKakao,
@@ -37,6 +40,7 @@ export default function buildMethods(context) {
     clearBackground,
     showDialogue,
     jumpToNextInterrupt,
+    autoUpdateSkipButton,
     setNotificationActive: (val) => {
       context.notificationActive = val;
       autoUpdateSkipButton(context);
