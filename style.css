@@ -909,7 +909,7 @@ body.dark-mode {
 
 #intro-bubble {
   position: absolute;
-  bottom: 250px;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.95);
