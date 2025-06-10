@@ -43,16 +43,18 @@ export function showNotification(d, context, showDialogue) {
   newPopup.src = d.notification;
   newPopup.style.display = 'block';
   newPopup.dataset.clicked = 'false';
+  newPopup.classList.remove('closing');
 
   newPopup.onclick = event => {
     event.stopPropagation();
     if (newPopup.dataset.clicked === 'true') return;
     newPopup.dataset.clicked = 'true';
-    newPopup.style.display = 'none';
+    newPopup.classList.add('closing');
     setNotificationActive(false);
     setTimeout(() => {
+      newPopup.style.display = 'none';
       indexRef.value++;
       showDialogue(indexRef.value, context);
-    }, 10);
+    }, 400);
   };
 }
