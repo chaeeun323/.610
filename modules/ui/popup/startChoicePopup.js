@@ -1,6 +1,7 @@
 import { initHintSystem, showAnswerInput } from '../../dialogue/answerHandler.js';
 import { applyTheme } from '../themeManager.js';
 import { autoUpdateSkipButton } from '../control/skipButtonController.js';
+import { loadFromLocal } from '../../save/saveManager.js';
 
 export function setupStartChoicePopup(context, currentDialogue) {
   const startChoicePopup = document.createElement('div');
@@ -173,36 +174,16 @@ export function setupStartChoicePopup(context, currentDialogue) {
 
   ['1', '2', '3'].forEach((num) => {
     startChoicePopup.querySelector(`#slot-${num}`).onclick = () => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'application/json';
-      input.style.display = 'none';
-      input.onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          try {
-            const data = JSON.parse(event.target.result);
-            if (!data || typeof data.index !== 'number') {
-              alert('유효하지 않은 저장 파일입니다.');
-              return;
-            }
-            handleLoadData(data);
-          } catch (err) {
-            console.error('파일 파싱 실패:', err);
-            alert('파일 읽기 실패');
-          }
-        };
-        reader.onerror = (err) => {
-          console.error('파일 읽기 오류:', err);
-          alert('파일을 불러오는 중 오류가 발생했습니다.');
-        };
-        reader.readAsText(file);
-      };
-      document.body.appendChild(input);
-      input.click();
-      document.body.removeChild(input);
+      const data = loadFromLocal(num);
+      if (!data) {
+        alert('해당 슬롯에 저장된 데이터가 없습니다.');
+        return;
+      }
+      if (typeof data.index !== 'number') {
+        alert('유효하지 않은 저장 데이터입니다.');
+        return;
+      }
+      handleLoadData(data);
     };
   });
 }
