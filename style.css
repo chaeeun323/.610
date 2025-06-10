@@ -923,12 +923,19 @@ body.dark-mode {
 
 #intro-bubble.show {
   display: block;
-  animation: bubble-smoke 1.5s forwards;
+  animation: bubble-pop 0.25s ease-out forwards,
+             bubble-smoke 1.5s forwards 0.25s;
 }
 
 @keyframes bubble-smoke {
   from { opacity: 1; transform: translateX(-50%) translateY(0); }
   to { opacity: 0; transform: translateX(-50%) translateY(-80px); }
+}
+
+@keyframes bubble-pop {
+  0% { transform: translateX(-50%) scale(0); opacity: 0; }
+  80% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
 }
 
 /* ───── 레벨 박스 ───── */
