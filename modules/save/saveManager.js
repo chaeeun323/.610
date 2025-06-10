@@ -58,3 +58,20 @@ export function downloadSave(slotNumber, context, showPopupFn) {
     showPopupFn(`슬롯 ${slotNumber}에 파일로 저장되었습니다.`);
   }
 }
+
+export function saveToLocal(slotNumber, context) {
+  const saveData = buildSaveData(context);
+  const saveJson = JSON.stringify(saveData);
+  localStorage.setItem('save-slot-' + slotNumber, saveJson);
+}
+
+export function loadFromLocal(slotNumber) {
+  const json = localStorage.getItem('save-slot-' + slotNumber);
+  if (!json) return null;
+  try {
+    return JSON.parse(json);
+  } catch (err) {
+    console.error('Failed to parse save data:', err);
+    return null;
+  }
+}
