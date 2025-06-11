@@ -42,17 +42,20 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   bubble.id = 'intro-bubble';
   startScreen.appendChild(bubble);
 
-  const bubbleMessages = ['심심해', '배고파', '보고싶었어'];
+  const bubbleMessages = ['심심해', '배고파', '보고싶었어', '뽀용뽀용', '뾰쨔쟈'];
+
   clickArea.addEventListener('click', () => {
-    if (bubble.classList.contains('show')) return;
     const msg = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
     bubble.textContent = msg;
+    bubble.classList.remove('show');
+    void bubble.offsetWidth; // force reflow so animation can restart
     bubble.classList.add('show');
-    bubble.addEventListener('animationend', function handler(e) {
-      if (e.animationName !== 'bubble-smoke') return;
+  });
+
+  bubble.addEventListener('animationend', (e) => {
+    if (e.animationName === 'bubble-smoke') {
       bubble.classList.remove('show');
-      bubble.removeEventListener('animationend', handler);
-    });
+    }
   });
 
   const menuWrapper = document.createElement('div');
