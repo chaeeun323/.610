@@ -752,6 +752,7 @@ body.dark-mode {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 /* 닫기 버튼 */
@@ -1263,8 +1264,9 @@ body.dark-mode {
 #start-choice-popup #slot-options {
   display: none;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 12px;
+  width: 100%;
 }
 
 .fade-out {
