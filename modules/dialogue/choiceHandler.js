@@ -28,7 +28,7 @@ export function attachChoiceListener(container, context, showDialogue) {
     if (!btn) return;
 
     e.stopPropagation();
-    window.suppressClick = true;
+    context.suppressClick = true;
 
     let branch;
     try {
@@ -77,7 +77,7 @@ export function attachChoiceListener(container, context, showDialogue) {
       context.kakaoBox.style.display = 'block';
       context.kakaoOverlay.style.display = 'block';
       showDialogue(idx, context);
-      window.suppressClick = false;
+      context.suppressClick = false;
     }, 600);
   });
 }
