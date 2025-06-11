@@ -42,8 +42,8 @@ export function attachChoiceListener(container, context, showDialogue) {
     buttons.forEach((b) => {
       if (b === btn) {
         b.classList.add('choice-selected');
-        // 잠깐 확대 후 원상복구
-        setTimeout(() => b.classList.remove('choice-selected'), 200);
+        // 약간 확대된 상태를 충분히 보여준 뒤 원상 복구한다
+        setTimeout(() => b.classList.remove('choice-selected'), 600);
       } else {
         b.classList.add('choice-fade');
       }
