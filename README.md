@@ -4,14 +4,20 @@ This project is a web-based interactive narrative that emulates a mobile messagi
 ## Installation
 
 1. Install [Node.js](https://nodejs.org/) and npm if you have not already.
-2. Clone this repository and install the dependencies:
+2. Clone this repository. There are no external packages, but running `npm install` will create a lock file for consistency:
    ```bash
    npm install
    ```
 
 ## Running the Game
 
-Open `index.html` directly in a modern browser or serve the project with a lightweight static server such as `serve` or `http-server`.
+Open `index.html` directly in a modern browser or run the built-in server:
+
+```bash
+npm start
+```
+
+This script uses Node's `http` module to serve the project locally without any external dependencies.
 
 ## Running Tests
 

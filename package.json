@@ -4,10 +4,7 @@
   "description": "Web-based interactive narrative in the style of a mobile messaging app.",
   "type": "module",
   "scripts": {
-    "start": "http-server -a localhost -p 8080",
+    "start": "node server.js",
     "test": "node test/test.js"
-  },
-  "devDependencies": {
-    "http-server": "^14.1.1"
   }
 }
