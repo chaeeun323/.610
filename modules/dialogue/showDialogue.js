@@ -51,7 +51,18 @@ export function showDialogue(i, context) {
     video.load();
     video.style.display = 'block';
     gameWrapper.style.background = '';
-    return;
+    if (
+      !d.talk &&
+      !d.system &&
+      !d.kakao &&
+      !d.linkPreview &&
+      !d.choice &&
+      !d.answer &&
+      !d.image &&
+      !d.notification
+    ) {
+      return;
+    }
   }
 
   // 이미지 배경 처리
