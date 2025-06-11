@@ -16,6 +16,9 @@ export function setupMenuPopup(context) {
   `;
   document.body.appendChild(menuPopup);
   context.menuPopup = menuPopup;
+  const homeConfirm = document.getElementById('home-confirm');
+  const homeCancel = document.getElementById('home-cancel');
+  const homeOk = document.getElementById('home-ok');
 
   const close = () => {
     menuPopup.style.display = 'none';
@@ -34,16 +37,44 @@ export function setupMenuPopup(context) {
     menuPopup.style.display = 'flex';
   };
 
-  menuPopup.querySelector('#menu-home-btn').onclick = (e) => {
-    e.stopPropagation();
-    close();
+  function goHome() {
     const startScreen = document.getElementById('main-start-screen');
+    const intro = document.getElementById('intro-screen');
     const gameWrapper = document.getElementById('game-wrapper');
     if (startScreen) startScreen.style.display = 'flex';
+    if (intro) intro.style.display = 'flex';
     if (gameWrapper) gameWrapper.style.display = 'none';
     const startChoice = document.getElementById('start-choice-popup');
     if (startChoice) startChoice.style.display = 'none';
+    window.suppressClick = false;
+  }
+
+  menuPopup.querySelector('#menu-home-btn').onclick = (e) => {
+    e.stopPropagation();
+    close();
+    if (homeConfirm) {
+      window.suppressClick = true;
+      homeConfirm.style.display = 'block';
+    } else {
+      goHome();
+    }
   };
+
+  if (homeCancel) {
+    homeCancel.onclick = (e) => {
+      e.stopPropagation();
+      if (homeConfirm) homeConfirm.style.display = 'none';
+      window.suppressClick = false;
+    };
+  }
+
+  if (homeOk) {
+    homeOk.onclick = (e) => {
+      e.stopPropagation();
+      if (homeConfirm) homeConfirm.style.display = 'none';
+      goHome();
+    };
+  }
 
   menuPopup.querySelector('#menu-save-btn').onclick = (e) => {
     e.stopPropagation();

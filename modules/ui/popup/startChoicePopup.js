@@ -55,7 +55,7 @@ export function setupStartChoicePopup(context, currentDialogue) {
 
   startChoicePopup.querySelector('#start-new-btn').onclick = () => {
     const intro = document.getElementById('intro-screen');
-    if (intro) intro.remove();
+    if (intro) intro.style.display = 'none';
     hidePopup();
     document.getElementById('main-start-screen').style.display = 'none';
     document.getElementById('game-wrapper').style.display = 'block';
@@ -158,7 +158,7 @@ export function setupStartChoicePopup(context, currentDialogue) {
 
     hidePopup();
     const intro = document.getElementById('intro-screen');
-    if (intro) intro.remove();
+    if (intro) intro.style.display = 'none';
     document.getElementById('main-start-screen').style.display = 'flex';
     document.getElementById('game-wrapper').style.display = 'none';
     context.updateLevelBar(context.indexRef.value, context.currentDialogue);
