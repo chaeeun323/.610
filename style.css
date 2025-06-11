@@ -1211,13 +1211,12 @@ body.dark-mode {
 }
 
 /* 버튼 그룹 스타일 */
-#start-choice-popup .popup-buttons,
-#start-choice-popup .slot-buttons {
+#start-choice-popup .popup-buttons {
   display: flex;
   gap: 12px;
   margin-top: 12px;
 }
-#start-choice-popup button {
+#start-choice-popup .popup-buttons button {
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
@@ -1227,7 +1226,31 @@ body.dark-mode {
   cursor: pointer;
   transition: background .2s;
 }
-#start-choice-popup button:hover {
+#start-choice-popup .popup-buttons button:hover {
+  background: #3b8dd8;
+}
+
+/* 불러오기 슬롯 버튼은 저장 슬롯과 동일한 스타일로 */
+#start-choice-popup .slot-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+#start-choice-popup .slot-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #4da5ff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Pretendard', sans-serif;
+}
+#start-choice-popup .slot-buttons button:hover {
   background: #3b8dd8;
 }
 
