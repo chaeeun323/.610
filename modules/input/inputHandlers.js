@@ -40,7 +40,7 @@ export function attachMessageListeners({
 
 export function setupDialogueClickHandler(context) {
   document.body.addEventListener('click', () => {
-    if (context.suppressClick) {
+    if (context.suppressClick || window.suppressClick) {
       context.suppressClick = false;
       return;
     }

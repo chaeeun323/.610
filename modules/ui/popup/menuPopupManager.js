@@ -16,6 +16,9 @@ export function setupMenuPopup(context) {
   `;
   document.body.appendChild(menuPopup);
   context.menuPopup = menuPopup;
+  menuPopup.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
   const homeConfirm = document.getElementById('home-confirm');
   const homeCancel = document.getElementById('home-cancel');
   const homeOk = document.getElementById('home-ok');
@@ -23,6 +26,7 @@ export function setupMenuPopup(context) {
   const close = () => {
     menuPopup.style.display = 'none';
     window.suppressClick = false;
+    context.suppressClick = false;
   };
 
   menuPopup.querySelector('#menu-popup-close').onclick = (e) => {
@@ -33,6 +37,7 @@ export function setupMenuPopup(context) {
   context.menuBtn.onclick = (e) => {
     e.stopPropagation();
     window.suppressClick = true;
+    context.suppressClick = true;
     menuPopup.classList.remove('hidden');
     menuPopup.style.display = 'flex';
   };
@@ -48,6 +53,7 @@ export function setupMenuPopup(context) {
     const startChoice = document.getElementById('start-choice-popup');
     if (startChoice) startChoice.style.display = 'none';
     window.suppressClick = false;
+    context.suppressClick = false;
   }
 
   menuPopup.querySelector('#menu-home-btn').onclick = (e) => {
@@ -66,6 +72,7 @@ export function setupMenuPopup(context) {
       e.stopPropagation();
       if (homeConfirm) homeConfirm.style.display = 'none';
       window.suppressClick = false;
+      context.suppressClick = false;
     };
   }
 
