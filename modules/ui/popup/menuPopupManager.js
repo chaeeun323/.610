@@ -42,13 +42,7 @@ export function setupMenuPopup(context) {
     if (startScreen) startScreen.style.display = 'flex';
     if (gameWrapper) gameWrapper.style.display = 'none';
     const startChoice = document.getElementById('start-choice-popup');
-    if (startChoice) {
-      startChoice.style.display = 'flex';
-      const backBtn = startChoice.querySelector('#popup-back');
-      if (backBtn) backBtn.style.display = 'none';
-      startChoice.querySelector('#main-options').style.display = 'block';
-      startChoice.querySelector('#slot-options').style.display = 'none';
-    }
+    if (startChoice) startChoice.style.display = 'none';
   };
 
   menuPopup.querySelector('#menu-save-btn').onclick = (e) => {
