@@ -48,7 +48,8 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     const msg = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
     bubble.textContent = msg;
     bubble.classList.add('show');
-    bubble.addEventListener('animationend', function handler() {
+    bubble.addEventListener('animationend', function handler(e) {
+      if (e.animationName !== 'bubble-smoke') return;
       bubble.classList.remove('show');
       bubble.removeEventListener('animationend', handler);
     });
