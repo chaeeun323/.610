@@ -10,7 +10,6 @@ export function setupMenuPopup(context) {
       <div class="menu-buttons">
         <button id="menu-home-btn">처음으로</button>
         <button id="menu-save-btn">저장</button>
-        <button id="menu-load-btn">불러오기</button>
       </div>
     </div>
   `;
@@ -94,16 +93,4 @@ export function setupMenuPopup(context) {
     }
   };
 
-  menuPopup.querySelector('#menu-load-btn').onclick = (e) => {
-    e.stopPropagation();
-    close();
-    const startChoice = document.getElementById('start-choice-popup');
-    if (startChoice) {
-      startChoice.style.display = 'flex';
-      startChoice.querySelector('#main-options').style.display = 'none';
-      startChoice.querySelector('#slot-options').style.display = 'block';
-      const backBtn = startChoice.querySelector('#popup-back');
-      if (backBtn) backBtn.style.display = 'none';
-    }
-  };
 }
