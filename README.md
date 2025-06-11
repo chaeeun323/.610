@@ -1,7 +1,6 @@
 # Kakao Branching Dialogue Game
 
-This project is a web-based interactive narrative that emulates a mobile messaging interface. It was built with HTML, CSS and JavaScript modules.
-
+This project is a web-based interactive narrative that emulates a mobile messaging interface. It is built with HTML, CSS and vanilla JavaScript modules. 
 ## Installation
 
 1. Install [Node.js](https://nodejs.org/) and npm if you have not already.
@@ -12,7 +11,7 @@ This project is a web-based interactive narrative that emulates a mobile messagi
 
 ## Running the Game
 
-Open `index.html` in a modern browser or serve the project with a static web server such as `serve` or `http-server`.
+Open `index.html` directly in a modern browser or serve the project with a lightweight static server such as `serve` or `http-server`.
 
 ## Running Tests
 
@@ -31,3 +30,7 @@ npm config set registry https://registry.npmjs.org/
 ```
 
 Make sure your network allows access to this registry and try again.
+
+## Intro Bubble Animation Issues
+
+If the intro bubble motion does not play, confirm that `style.css` is loaded correctly and that no JavaScript errors appear in the browser console.
