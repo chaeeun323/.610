@@ -84,7 +84,7 @@ export function setupStartChoicePopup(context, currentDialogue) {
     context.isRestored = true;
 
     const videoEl = document.getElementById('bg-video');
-    if (data.lastVideoIndex > data.lastImageIndex) {
+    if (data.lastVideo && data.lastVideoIndex >= data.lastImageIndex) {
       if (videoEl) {
         videoEl.src = data.lastVideo;
         videoEl.load();
@@ -97,12 +97,21 @@ export function setupStartChoicePopup(context, currentDialogue) {
         context.overlayImage.style.display = 'none';
         context.overlayImage.src = '';
       }
-    } else {
+    } else if (data.lastImage) {
       if (context.gameWrapper) {
         context.gameWrapper.style.background = `url('${data.lastImage}') no-repeat center center`;
         context.gameWrapper.style.backgroundSize = 'cover';
       }
-      if (videoEl) videoEl.style.display = 'none';
+      if (videoEl) {
+        videoEl.style.display = 'none';
+        videoEl.src = '';
+      }
+    } else {
+      if (context.gameWrapper) context.gameWrapper.style.background = '';
+      if (videoEl) {
+        videoEl.style.display = 'none';
+        videoEl.src = '';
+      }
     }
 
     if (data.overlayImageSrc) {
