@@ -33,7 +33,7 @@ export function setupSavePopup(context) {
   msgBox.querySelector('.popup-message-close').addEventListener('click', (e) => {
     e.stopPropagation();
     msgBox.classList.remove('active');
-    window.suppressClick = false;
+    context.suppressClick = false;
   });
 
   context.saveBtn.onclick = (e) => {
@@ -58,7 +58,7 @@ export function setupSavePopup(context) {
       e.stopPropagation();
       savePopup.style.display = 'none';
       setTimeout(() => {
-        window.suppressClick = false;
+        context.suppressClick = false;
       }, 300);
     };
   }
