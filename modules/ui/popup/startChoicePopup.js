@@ -60,7 +60,7 @@ export function setupStartChoicePopup(context, currentDialogue) {
     document.getElementById('main-start-screen').style.display = 'none';
     document.getElementById('game-wrapper').style.display = 'block';
     context.gameStarted = true;
-    if (context.saveBtn) context.saveBtn.style.display = 'block';
+    if (context.menuBtn) context.menuBtn.style.display = 'block';
     context.indexRef.value = 0;
     context.currentDialogue = currentDialogue;
     context.showDialogue(context.indexRef.value, context);

@@ -134,7 +134,7 @@ setTimeout(() => {
         hintBtn,
         hintConfirm,
         answerContainer: document.getElementById('answer-ui'),
-        saveBtn: document.getElementById('save-btn'),
+        saveBtn: document.getElementById('menu-btn'),
         skipBtn: document.getElementById('skip-btn'),
         getGameState: () => context.currentDialogue,
         indexRef: context.indexRef,

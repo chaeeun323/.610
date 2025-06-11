@@ -36,12 +36,6 @@ export function setupSavePopup(context) {
     window.suppressClick = false;
   });
 
-  context.saveBtn.onclick = (e) => {
-    e.stopPropagation();
-    context.suppressClick = true;
-    savePopup.classList.remove('hidden');
-    savePopup.style.display = 'flex';
-  };
 
   savePopup.querySelectorAll('.save-slot-btn').forEach((btn) => {
     btn.onclick = (e) => {

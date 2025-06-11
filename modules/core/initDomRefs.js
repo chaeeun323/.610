@@ -1,5 +1,5 @@
 export function initDomRefs(context) {
-  context.saveBtn = document.getElementById('save-btn');
+  context.menuBtn = document.getElementById('menu-btn');
   context.gameWrapper = document.getElementById('game-wrapper');
   context.kakaoBox = document.getElementById('kakao-chat-box');
   context.choiceContainer = document.getElementById('choice-container');

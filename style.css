@@ -717,6 +717,57 @@ body.dark-mode {
   background: #3b8dd8;
 }
 
+/* 메뉴 팝업 */
+.menu-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+.menu-popup-box {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  width: 220px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  text-align: center;
+}
+.menu-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}
+.menu-popup-close img {
+  width: 20px;
+}
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.menu-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #4da5ff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-family: 'Pretendard', sans-serif;
+}
+.menu-buttons button:hover {
+  background: #3b8dd8;
+}
+
 /* 저장 버튼 (좌상단) */
 .save-btn {
   position: fixed;
