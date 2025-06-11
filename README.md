@@ -15,7 +15,7 @@ Open `index.html` directly in a modern browser or serve the project with a light
 
 ## Running Tests
 
-If test scripts are provided, you can run them with:
+This project includes a small Node-based test suite. Run it with:
 
 ```bash
 npm test
