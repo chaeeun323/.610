@@ -45,6 +45,9 @@ export function setupStartChoicePopup(context, currentDialogue) {
     startChoicePopup.querySelector('#popup-back').style.display = 'none';
   };
 
+  // ensure popup starts hidden even if CSS fails to load
+  hidePopup();
+
   startChoicePopup.querySelector('#popup-close').onclick = hidePopup;
   startChoicePopup.querySelector('#popup-back').onclick = () => {
     startChoicePopup.querySelector('#main-options').style.display = 'block';
