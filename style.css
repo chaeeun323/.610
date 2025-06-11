@@ -23,6 +23,11 @@ body.dark-mode {
   background-color: #1e1e1e;
 }
 
+/* Utility hidden class */
+.hidden {
+  display: none !important;
+}
+
 @media (max-width: 768px) {
   html {
     -webkit-text-size-adjust: none;
@@ -711,7 +716,7 @@ body.dark-mode {
   width: 100vw;
   height: 100vh;
   z-index: 2000;
-  display: flex;
+  display: none; /* shown via JS */
   justify-content: center;
   align-items: center;
   flex-direction: column;
