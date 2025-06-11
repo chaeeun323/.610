@@ -37,6 +37,8 @@ export function setupStartChoicePopup(context, currentDialogue) {
     </div>
   `;
   document.body.appendChild(startChoicePopup);
+  // Prevent popup interactions from advancing dialogue
+  startChoicePopup.addEventListener('click', (e) => e.stopPropagation());
 
   const hidePopup = () => {
     startChoicePopup.style.display = 'none';
