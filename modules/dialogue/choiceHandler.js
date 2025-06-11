@@ -39,9 +39,11 @@ export function attachChoiceListener(container, context, showDialogue) {
     if (!Array.isArray(branch)) return;
 
     const buttons = Array.from(container.querySelectorAll('.choice-btn'));
-    buttons.forEach(b => {
+    buttons.forEach((b) => {
       if (b === btn) {
         b.classList.add('choice-selected');
+        // 잠깐 확대 후 원상복구
+        setTimeout(() => b.classList.remove('choice-selected'), 200);
       } else {
         b.classList.add('choice-fade');
       }
