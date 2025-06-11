@@ -48,10 +48,15 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     const msg = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
     bubble.textContent = msg;
     bubble.classList.add('show');
-    bubble.addEventListener('animationend', function handler() {
-      bubble.classList.remove('show');
-      bubble.removeEventListener('animationend', handler);
-    });
+    bubble.addEventListener(
+      'animationend',
+      function handler(e) {
+        if (e.animationName === 'bubble-smoke') {
+          bubble.classList.remove('show');
+          bubble.removeEventListener('animationend', handler);
+        }
+      }
+    );
   });
 
   const menuWrapper = document.createElement('div');
