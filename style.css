@@ -1135,61 +1135,6 @@ body.dark-mode {
   transition: width 0.4s ease;
 }
 
-/* ───── 시작 선택 팝업 ───── */
-#start-choice-popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  background: transparent;
-}
-.popup-inner {
-  position: relative;
-  background: white;
-  border-radius: 20px;
-  padding: 24px;
-  width: 320px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  text-align: center;
-}
-.popup-close, .popup-back {
-  position: absolute;
-  top: 12px;
-  cursor: pointer;
-}
-.popup-close {
-  right: 12px;
-}
-.popup-back {
-  left: 12px;
-  display: none;
-}
-.popup-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 16px;
-}
-.slot-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* 요소 숨김 */
-.hidden {
-  display: none !important;
-}
-/* 비활성(투명도 + 클릭 차단) */
-.disabled {
-  opacity: 0.5 !important;
-  pointer-events: none !important;
-}
 
 /* 시작 선택 팝업 전체 */
 #start-choice-popup {

@@ -38,7 +38,12 @@ export function setupStartChoicePopup(context, currentDialogue) {
   `;
   document.body.appendChild(startChoicePopup);
 
-  const hidePopup = () => { startChoicePopup.style.display = 'none'; };
+  const hidePopup = () => {
+    startChoicePopup.style.display = 'none';
+    startChoicePopup.querySelector('#main-options').style.display = 'block';
+    startChoicePopup.querySelector('#slot-options').style.display = 'none';
+    startChoicePopup.querySelector('#popup-back').style.display = 'none';
+  };
 
   startChoicePopup.querySelector('#popup-close').onclick = hidePopup;
   startChoicePopup.querySelector('#popup-back').onclick = () => {
