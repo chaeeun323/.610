@@ -41,9 +41,10 @@ export function setupMenuPopup(context) {
     const startScreen = document.getElementById('main-start-screen');
     const intro = document.getElementById('intro-screen');
     const gameWrapper = document.getElementById('game-wrapper');
-    if (startScreen) startScreen.style.display = 'flex';
+    if (startScreen) startScreen.style.display = 'none';
     if (intro) intro.style.display = 'flex';
     if (gameWrapper) gameWrapper.style.display = 'none';
+    if (context.menuBtn) context.menuBtn.style.display = 'none';
     const startChoice = document.getElementById('start-choice-popup');
     if (startChoice) startChoice.style.display = 'none';
     window.suppressClick = false;
@@ -80,7 +81,9 @@ export function setupMenuPopup(context) {
     e.stopPropagation();
     close();
     if (context.savePopup) {
+      context.savePopup.classList.remove('hidden');
       context.savePopup.style.display = 'flex';
+      window.suppressClick = true;
     }
   };
 
