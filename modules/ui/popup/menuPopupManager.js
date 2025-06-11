@@ -96,7 +96,7 @@ export function setupMenuPopup(context) {
       startChoice.querySelector('#main-options').style.display = 'none';
       startChoice.querySelector('#slot-options').style.display = 'block';
       const backBtn = startChoice.querySelector('#popup-back');
-      if (backBtn) backBtn.style.display = 'block';
+      if (backBtn) backBtn.style.display = 'none';
     }
   };
 }
