@@ -21,10 +21,8 @@ export function buildSaveData(context) {
 
   const currentTheme = getCurrentTheme();
 
-  const index = Math.max(context.indexRef.value - 1, 0);
-
   return {
-    index,
+    index: context.indexRef.value,
     dialogue: JSON.parse(JSON.stringify(context.currentDialogue)),
     lastImage,
     lastImageIndex,

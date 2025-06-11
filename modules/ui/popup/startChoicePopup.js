@@ -79,7 +79,7 @@ export function setupStartChoicePopup(context, currentDialogue) {
   const handleLoadData = (data) => {
     if (data.theme) applyTheme(data.theme);
     context.currentDialogue = data.dialogue;
-    context.indexRef.value = data.index + 1;
+    context.indexRef.value = data.index;
     context.saveLoaded = true;
     context.isRestored = true;
 
