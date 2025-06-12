@@ -120,11 +120,16 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
           <button id="attendance-close" class="attendance-close">닫기</button>
         </div>
         <div class="attendance-row">
-          <div class="attendance-item" data-day="1">첫번째 출석<br><span>복 3개</span></div>
-          <div class="attendance-item" data-day="2">두번째 출석<br><span>복 5개</span></div>
-          <div class="attendance-item" data-day="3">세번째 출석<br><span>복 10개</span></div>
+          <div class="attendance-bonus-text">
+            <div>3일연속출석!</div>
+            <div>보너스 복 35개!</div>
+          </div>
+          <div class="attendance-circles">
+            <div class="attendance-item attendance-circle" data-day="1">1일<br>출석</div>
+            <div class="attendance-item attendance-circle" data-day="2">2일<br>5개</div>
+            <div class="attendance-item attendance-circle" data-day="3">3일<br>30개</div>
+          </div>
         </div>
-        <div class="attendance-bonus">3일연속출석! 보너스 복 35개!</div>
         <button id="attendance-confirm" class="attendance-confirm">출석체크하기</button>
       </div>
     `;
