@@ -31,6 +31,15 @@ export function createLevelBox() {
     <div class="level-progress">
       <div id="level-bar-fill" class="level-fill"></div>
     </div>
+    <div class="bok-area">
+      <span id="bok-count" class="bok-count">0</span>
+      <button id="give-bok-btn" class="give-bok-btn">복주기</button>
+    </div>
   `;
   return levelBox;
+}
+
+export function updateBokDisplay(count) {
+  const el = document.getElementById('bok-count');
+  if (el) el.textContent = String(count);
 }

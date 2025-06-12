@@ -22,6 +22,8 @@ const domRefs = {
   msgBox: null,
   savePopup: null,
   menuPopup: null,
+  giveBokBtn: null,
+  bokCountEl: null,
 };
 
 export default domRefs;

@@ -85,6 +85,7 @@ export function setupStartChoicePopup(context, currentDialogue) {
     if (typeof data.bokCount === 'number') {
       context.bokCount = data.bokCount;
       localStorage.setItem('bokCount', String(context.bokCount));
+      context.updateBokDisplay(context.bokCount);
     }
     if (typeof data.attendanceCount === 'number') {
       context.attendanceCount = data.attendanceCount;

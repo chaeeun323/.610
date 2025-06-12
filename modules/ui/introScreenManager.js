@@ -124,6 +124,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     const count = Number(localStorage.getItem('attendanceCount') || '0');
     const savedBok = Number(localStorage.getItem('bokCount') || '0');
     context.bokCount = savedBok;
+    context.updateBokDisplay(context.bokCount);
     bottomSheetContent.innerHTML = `
       <div class="attendance-box">
         <div class="attendance-title">출석체크</div>
@@ -166,6 +167,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
             context.bokCount += 35;
             localStorage.setItem('bokCount', String(context.bokCount));
           }
+          context.updateBokDisplay(context.bokCount);
         }
         if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
         hideBottomSheet();

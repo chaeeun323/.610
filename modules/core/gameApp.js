@@ -88,6 +88,23 @@ window.addEventListener('load', () => {
   const startScreen = document.getElementById('main-start-screen');
   const levelBox = context.createLevelBox();
   startScreen.appendChild(levelBox);
+  context.giveBokBtn = levelBox.querySelector('#give-bok-btn');
+  context.bokCountEl = levelBox.querySelector('#bok-count');
+  context.updateBokDisplay(context.bokCount);
+
+  if (context.giveBokBtn) {
+    context.giveBokBtn.onclick = (e) => {
+      e.stopPropagation();
+      if (context.bokCount > 0) {
+        context.bokCount -= 1;
+        localStorage.setItem('bokCount', String(context.bokCount));
+        context.updateBokDisplay(context.bokCount);
+        context.showPopup('복을 주었습니다!');
+      } else {
+        context.showPopup('복이 부족합니다!');
+      }
+    };
+  }
   if (startScreen) {
     startScreen.style.display = 'none';
   }

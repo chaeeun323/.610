@@ -1144,6 +1144,28 @@ body.dark-mode {
   transition: width 0.4s ease;
 }
 
+.bok-area {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bok-count {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.give-bok-btn {
+  padding: 4px 8px;
+  background: #f9bfe6;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 
 /* 시작 선택 팝업 전체 */
 #start-choice-popup {
