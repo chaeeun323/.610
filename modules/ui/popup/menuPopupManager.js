@@ -16,6 +16,9 @@ export function setupMenuPopup(context) {
   document.body.appendChild(menuPopup);
   context.menuPopup = menuPopup;
   menuPopup.addEventListener('click', (e) => {
+    if (e.target === menuPopup) {
+      close();
+    }
     e.stopPropagation();
   });
   const homeConfirm = document.getElementById('home-confirm');
