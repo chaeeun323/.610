@@ -16,4 +16,5 @@ export function initDomRefs(context) {
   context.hintStep2 = document.getElementById('hint-step2');
   context.hintBtn = document.getElementById('hint-btn');
   context.hintConfirm = document.getElementById('hint-confirm');
+  context.attendancePopup = document.getElementById('attendance-popup');
 }

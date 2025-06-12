@@ -1324,3 +1324,61 @@ body.dark-mode {
   overflow-y: auto;
   height: 100%;
 }
+
+/* ───── Attendance Popup ───── */
+.attendance-popup {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.attendance-box {
+  width: 90%;
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attendance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attendance-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.attendance-cell {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 12px;
+  text-align: center;
+  background: #f5f5f5;
+}
+
+.attendance-cell.checked {
+  background: #bde0fe;
+}
+
+.attendance-close {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}

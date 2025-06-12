@@ -86,7 +86,13 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     btn.appendChild(labelEl);
     menuGrid.appendChild(btn);
     btn.addEventListener('click', () => {
-      bottomSheet.classList.toggle('show');
+      if (label === '출석체크' && context.attendancePopup) {
+        window.suppressClick = true;
+        context.attendancePopup.classList.remove('hidden');
+        context.attendancePopup.style.display = 'flex';
+      } else {
+        bottomSheet.classList.toggle('show');
+      }
     });
   });
 
