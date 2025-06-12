@@ -19,6 +19,10 @@ npm start
 
 This script uses Node's `http` module to serve the project locally without any external dependencies.
 
+## Attendance Rewards
+
+Daily attendance grants in-game "복" points. Progress and your current 복 count are stored in `localStorage` and included when saving and loading game data.
+
 ## Running Tests
 
 This project includes a small Node-based test suite. Run it with:

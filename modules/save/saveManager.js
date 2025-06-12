@@ -37,7 +37,9 @@ export function buildSaveData(context) {
     overlayImageSrc: context.overlayImage?.src || '',
     overlayImageVisible: context.overlayImage?.style.display || 'none',
     overlayHistory: context.kakaoOverlay?.innerHTML || '',
-    theme: currentTheme
+    theme: currentTheme,
+    bokCount: context.bokCount,
+    attendanceCount: context.attendanceCount
   };
 }
 

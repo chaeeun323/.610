@@ -14,6 +14,8 @@ const state = {
   saveLoaded: false,
   isRestored: false,
   hintSystemInitialized: false,
+  bokCount: 0,
+  attendanceCount: 0,
 
   get currentDialogue() {
     return _currentDialogue;

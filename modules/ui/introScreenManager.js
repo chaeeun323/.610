@@ -12,6 +12,9 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
   let bottomSheet;
 
+  context.bokCount = Number(localStorage.getItem('bokCount') || '0');
+  context.attendanceCount = Number(localStorage.getItem('attendanceCount') || '0');
+
   const introButton = document.createElement('img');
   introButton.src = 'images/title_botton2.png';
   introButton.alt = '지금 꼬시러 가기!';
@@ -113,6 +116,8 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   function showAttendance() {
     window.suppressClick = true;
     const count = Number(localStorage.getItem('attendanceCount') || '0');
+    const savedBok = Number(localStorage.getItem('bokCount') || '0');
+    context.bokCount = savedBok;
     bottomSheetContent.innerHTML = `
       <div class="attendance-box">
         <div class="attendance-title">출석체크</div>
@@ -135,6 +140,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
     const items = bottomSheetContent.querySelectorAll('.attendance-item');
     let attendanceCount = count;
+    const rewards = [5, 5, 10];
     items.forEach((item, idx) => {
       if (idx < attendanceCount) item.classList.add('checked');
     });
@@ -143,14 +149,21 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     if (confirmBtn) {
       confirmBtn.onclick = (e) => {
         e.stopPropagation();
-        if (attendanceCount < 3) {
+        if (attendanceCount < rewards.length) {
           items[attendanceCount].classList.add('checked');
+          context.bokCount += rewards[attendanceCount];
           attendanceCount += 1;
+          context.attendanceCount = attendanceCount;
           localStorage.setItem('attendanceCount', String(attendanceCount));
+          localStorage.setItem('bokCount', String(context.bokCount));
+          if (attendanceCount === rewards.length) {
+            context.bokCount += 35;
+            localStorage.setItem('bokCount', String(context.bokCount));
+          }
         }
-        if (attendanceCount >= 3) confirmBtn.disabled = true;
+        if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
       };
-      if (attendanceCount >= 3) confirmBtn.disabled = true;
+      if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
     }
 
     bottomSheet.classList.add('show');

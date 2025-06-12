@@ -82,6 +82,14 @@ export function setupStartChoicePopup(context, currentDialogue) {
     if (data.theme) applyTheme(data.theme);
     context.currentDialogue = data.dialogue;
     context.indexRef.value = data.index;
+    if (typeof data.bokCount === 'number') {
+      context.bokCount = data.bokCount;
+      localStorage.setItem('bokCount', String(context.bokCount));
+    }
+    if (typeof data.attendanceCount === 'number') {
+      context.attendanceCount = data.attendanceCount;
+      localStorage.setItem('attendanceCount', String(context.attendanceCount));
+    }
     context.saveLoaded = true;
     context.isRestored = true;
 
