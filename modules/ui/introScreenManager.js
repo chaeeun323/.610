@@ -112,17 +112,20 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
   function showAttendance() {
     window.suppressClick = true;
+    const count = Number(localStorage.getItem('attendanceCount') || '0');
     bottomSheetContent.innerHTML = `
       <div class="attendance-box">
         <div class="attendance-header">
-          <div class="attendance-title">출석 체크</div>
+          <div class="attendance-title">출석체크</div>
           <button id="attendance-close" class="attendance-close">닫기</button>
         </div>
-        <div class="attendance-grid">
-          ${Array.from({ length: 28 })
-            .map((_, i) => `<div class="attendance-cell" data-day="${i + 1}">${i + 1}일차</div>`)
-            .join('')}
+        <div class="attendance-row">
+          <div class="attendance-item" data-day="1">첫번째 출석<br><span>복 3개</span></div>
+          <div class="attendance-item" data-day="2">두번째 출석<br><span>복 5개</span></div>
+          <div class="attendance-item" data-day="3">세번째 출석<br><span>복 10개</span></div>
         </div>
+        <div class="attendance-bonus">3일연속출석! 보너스 복 35개!</div>
+        <button id="attendance-confirm" class="attendance-confirm">출석체크하기</button>
       </div>
     `;
 
@@ -135,20 +138,24 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
       };
     }
 
-    const cells = bottomSheetContent.querySelectorAll('.attendance-cell');
-    const stored = JSON.parse(localStorage.getItem('attendanceDays') || '[]');
-    cells.forEach((cell, idx) => {
-      if (stored.includes(idx + 1)) {
-        cell.classList.add('checked');
-      }
+    const items = bottomSheetContent.querySelectorAll('.attendance-item');
+    let attendanceCount = count;
+    items.forEach((item, idx) => {
+      if (idx < attendanceCount) item.classList.add('checked');
     });
 
-    const todayIndex = stored.length;
-    if (todayIndex < cells.length) {
-      const todayCell = cells[todayIndex];
-      todayCell.classList.add('checked');
-      stored.push(todayIndex + 1);
-      localStorage.setItem('attendanceDays', JSON.stringify(stored));
+    const confirmBtn = bottomSheetContent.querySelector('#attendance-confirm');
+    if (confirmBtn) {
+      confirmBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (attendanceCount < 3) {
+          items[attendanceCount].classList.add('checked');
+          attendanceCount += 1;
+          localStorage.setItem('attendanceCount', String(attendanceCount));
+        }
+        if (attendanceCount >= 3) confirmBtn.disabled = true;
+      };
+      if (attendanceCount >= 3) confirmBtn.disabled = true;
     }
 
     bottomSheet.classList.add('show');

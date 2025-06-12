@@ -1344,23 +1344,38 @@ body.dark-mode {
   align-items: center;
 }
 
-.attendance-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+.attendance-row {
+  display: flex;
+  gap: 8px;
 }
 
-.attendance-cell {
+.attendance-item {
+  flex: 1;
   border: 1px solid #ddd;
   border-radius: 4px;
-  padding: 4px;
-  font-size: 12px;
+  padding: 8px;
+  font-size: 14px;
   text-align: center;
   background: #f5f5f5;
 }
 
-.attendance-cell.checked {
+.attendance-item.checked {
   background: #bde0fe;
+}
+
+.attendance-bonus {
+  text-align: center;
+  font-size: 14px;
+}
+
+.attendance-confirm {
+  align-self: center;
+  padding: 8px 16px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .attendance-close {
