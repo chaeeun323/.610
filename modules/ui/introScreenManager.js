@@ -47,10 +47,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   const bubbleMessages = ['심심해', '배고파', '보고싶었어', '뽀용뽀용', '뾰쨔쟈'];
 
   clickArea.addEventListener('click', () => {
-    if (
-      (bottomSheet && bottomSheet.classList.contains('show')) ||
-      (context.attendanceSheet && context.attendanceSheet.classList.contains('show'))
-    ) {
+    if (bottomSheet && bottomSheet.classList.contains('show')) {
       return;
     }
     const msg = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
@@ -94,9 +91,8 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     btn.appendChild(labelEl);
     menuGrid.appendChild(btn);
     btn.addEventListener('click', () => {
-      if (label === '출석체크' && context.attendanceSheet) {
-        window.suppressClick = true;
-        context.attendanceSheet.classList.toggle('show');
+      if (label === '출석체크') {
+        showAttendance();
       } else {
         bottomSheet.classList.toggle('show');
       }
@@ -113,6 +109,50 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   bottomSheetContent.textContent = '여기에 원하는 내용을 넣으세요!';
   bottomSheet.appendChild(bottomSheetContent);
   document.body.appendChild(bottomSheet);
+
+  function showAttendance() {
+    window.suppressClick = true;
+    bottomSheetContent.innerHTML = `
+      <div class="attendance-box">
+        <div class="attendance-header">
+          <div class="attendance-title">출석 체크</div>
+          <button id="attendance-close" class="attendance-close">닫기</button>
+        </div>
+        <div class="attendance-grid">
+          ${Array.from({ length: 28 })
+            .map((_, i) => `<div class="attendance-cell" data-day="${i + 1}">${i + 1}일차</div>`)
+            .join('')}
+        </div>
+      </div>
+    `;
+
+    const closeBtn = bottomSheetContent.querySelector('#attendance-close');
+    if (closeBtn) {
+      closeBtn.onclick = (e) => {
+        e.stopPropagation();
+        bottomSheet.classList.remove('show');
+        window.suppressClick = false;
+      };
+    }
+
+    const cells = bottomSheetContent.querySelectorAll('.attendance-cell');
+    const stored = JSON.parse(localStorage.getItem('attendanceDays') || '[]');
+    cells.forEach((cell, idx) => {
+      if (stored.includes(idx + 1)) {
+        cell.classList.add('checked');
+      }
+    });
+
+    const todayIndex = stored.length;
+    if (todayIndex < cells.length) {
+      const todayCell = cells[todayIndex];
+      todayCell.classList.add('checked');
+      stored.push(todayIndex + 1);
+      localStorage.setItem('attendanceDays', JSON.stringify(stored));
+    }
+
+    bottomSheet.classList.add('show');
+  }
 
   const button = document.createElement('img');
   button.src = 'images/title_botton2.png';

@@ -22,7 +22,6 @@ const domRefs = {
   msgBox: null,
   savePopup: null,
   menuPopup: null,
-  attendanceSheet: null,
 };
 
 export default domRefs;

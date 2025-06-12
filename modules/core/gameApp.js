@@ -11,7 +11,6 @@ import { showDialogue } from '../dialogue/showDialogue.js';
 import { setupStartChoicePopup } from '../ui/popup/startChoicePopup.js';
 import { setupSavePopup } from '../ui/popup/savePopupManager.js';
 import { setupMenuPopup } from '../ui/popup/menuPopupManager.js';
-import { setupAttendancePopup } from '../ui/popup/attendancePopup.js';
 import { initDomRefs } from './initDomRefs.js';
 
 export default function initGameApp(context) {
@@ -98,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initDomRefs(context);
   setupSavePopup(context);
   setupMenuPopup(context);
-  setupAttendancePopup(context);
   ensureSkipButton(context);
 
   attachMessageListeners({

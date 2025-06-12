@@ -1325,30 +1325,7 @@ body.dark-mode {
   height: 100%;
 }
 
-/* ───── Attendance Sheet ───── */
-.attendance-sheet {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -100%;
-  width: 100%;
-  max-width: 430px;
-  height: 70vh;
-  background: white;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
-  transition: bottom 0.3s ease-in-out;
-  z-index: 3000;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 20px;
-}
-
-.attendance-sheet.show {
-  bottom: 0;
-}
+/* ───── Attendance Layout ───── */
 
 .attendance-box {
   width: 90%;
