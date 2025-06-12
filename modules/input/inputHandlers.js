@@ -4,6 +4,9 @@
 import { showDialogue } from '../dialogue/showDialogue.js';
 import { autoUpdateSkipButton } from '../ui/control/skipButtonController.js';
 
+let listenersAttached = false;
+let bodyHandlerAttached = false;
+
 export function attachMessageListeners({
   kakaoBox,
   showDialogue,
@@ -17,28 +20,36 @@ export function attachMessageListeners({
   getGameState = null,
   indexRef = null
 }) {
+  if (listenersAttached) return;
+  listenersAttached = true;
+
+  if (!(kakaoBox instanceof HTMLElement)) return;
+
   // ✅ 링크 카드 클릭
-  kakaoBox.querySelectorAll('.preview-footer').forEach(footerEl => {
+  kakaoBox.querySelectorAll('.preview-footer').forEach((footerEl) => {
     const url = footerEl.dataset.url;
     if (!url) return;
     footerEl.addEventListener('click', () => window.open(url, '_blank'));
   });
 
   // ✅ 카드형 버튼 복원
-  kakaoBox.querySelectorAll('.preview-button').forEach(btn => {
+  kakaoBox.querySelectorAll('.preview-button').forEach((btn) => {
     const idx = Number(btn.dataset.msgIndex);
     btn.addEventListener('click', () => showDialogue(idx, context));
   });
 
   // ✅ 정답 입력 UI 클릭 막기
   if (answerContainer instanceof HTMLElement) {
-    answerContainer.addEventListener('click', e => {
+    answerContainer.addEventListener('click', (e) => {
       e.stopPropagation();
     });
   }
 }
 
 export function setupDialogueClickHandler(context) {
+  if (bodyHandlerAttached) return;
+  bodyHandlerAttached = true;
+
   document.body.addEventListener('click', () => {
     if (context.suppressClick || window.suppressClick) {
       context.suppressClick = false;
