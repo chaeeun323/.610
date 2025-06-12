@@ -35,6 +35,8 @@ export function setupMenuPopup(context) {
 
   context.menuBtn.onclick = (e) => {
     e.stopPropagation();
+    const sheet = document.getElementById('bottom-sheet');
+    if (sheet) sheet.classList.remove('show');
     window.suppressClick = true;
     context.suppressClick = true;
     menuPopup.classList.remove('hidden');
@@ -45,6 +47,8 @@ export function setupMenuPopup(context) {
     const startScreen = document.getElementById('main-start-screen');
     const intro = document.getElementById('intro-screen');
     const gameWrapper = document.getElementById('game-wrapper');
+    const sheet = document.getElementById('bottom-sheet');
+    if (sheet) sheet.classList.remove('show');
     if (startScreen) startScreen.style.display = 'none';
     if (intro) intro.style.display = 'flex';
     if (gameWrapper) gameWrapper.style.display = 'none';

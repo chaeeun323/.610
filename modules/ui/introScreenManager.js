@@ -96,8 +96,9 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     btn.addEventListener('click', () => {
       if (label === '출석체크') {
         showAttendance();
-      } else {
-        bottomSheet.classList.toggle('show');
+      } else if (bottomSheet) {
+        bottomSheet.classList.remove('show');
+        window.suppressClick = false;
       }
     });
   });
@@ -112,6 +113,11 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   bottomSheetContent.textContent = '여기에 원하는 내용을 넣으세요!';
   bottomSheet.appendChild(bottomSheetContent);
   document.body.appendChild(bottomSheet);
+
+  function hideBottomSheet() {
+    if (bottomSheet) bottomSheet.classList.remove('show');
+    window.suppressClick = false;
+  }
 
   function showAttendance() {
     window.suppressClick = true;
@@ -162,6 +168,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
           }
         }
         if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
+        hideBottomSheet();
       };
       if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
     }
@@ -176,6 +183,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
   button.addEventListener('click', function (e) {
     e.stopPropagation();
+    hideBottomSheet();
     document.getElementById("start-choice-popup").style.display = "none";
     document.getElementById("main-start-screen").style.display = "none";
     document.getElementById("game-wrapper").style.display = "block";
