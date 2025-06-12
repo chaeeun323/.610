@@ -1338,13 +1338,6 @@ body.dark-mode {
   gap: 8px;
 }
 
-.attendance-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-
 .attendance-row {
   display: flex;
   justify-content: space-between;
@@ -1352,31 +1345,14 @@ body.dark-mode {
   gap: 8px;
 }
 
-.attendance-bonus-text {
-  flex: 1;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.attendance-circles {
-  display: flex;
-  gap: 8px;
-}
-
-.attendance-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  background: #f5f5f5;
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.attendance-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .attendance-item {
+  flex: 1;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 8px;
@@ -1387,11 +1363,6 @@ body.dark-mode {
 
 .attendance-item.checked {
   background: #bde0fe;
-}
-
-.attendance-bonus {
-  text-align: center;
-  font-size: 14px;
 }
 
 .attendance-confirm {
@@ -1405,9 +1376,3 @@ body.dark-mode {
   cursor: pointer;
 }
 
-.attendance-close {
-  background: none;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-}

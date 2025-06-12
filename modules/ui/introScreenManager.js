@@ -115,33 +115,15 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     const count = Number(localStorage.getItem('attendanceCount') || '0');
     bottomSheetContent.innerHTML = `
       <div class="attendance-box">
-        <div class="attendance-header">
-          <div class="attendance-title">출석체크</div>
-          <button id="attendance-close" class="attendance-close">닫기</button>
-        </div>
+        <div class="attendance-title">출석체크</div>
         <div class="attendance-row">
-          <div class="attendance-bonus-text">
-            <div>3일연속출석!</div>
-            <div>보너스 복 35개!</div>
-          </div>
-          <div class="attendance-circles">
-            <div class="attendance-item attendance-circle" data-day="1">1일<br>출석</div>
-            <div class="attendance-item attendance-circle" data-day="2">2일<br>5개</div>
-            <div class="attendance-item attendance-circle" data-day="3">3일<br>30개</div>
-          </div>
+          <div class="attendance-item" data-day="1">첫번째출석<br>복5개</div>
+          <div class="attendance-item" data-day="2">두번째출석<br>복5개</div>
+          <div class="attendance-item" data-day="3">세번째출석<br>복5개</div>
         </div>
         <button id="attendance-confirm" class="attendance-confirm">출석체크하기</button>
       </div>
     `;
-
-    const closeBtn = bottomSheetContent.querySelector('#attendance-close');
-    if (closeBtn) {
-      closeBtn.onclick = (e) => {
-        e.stopPropagation();
-        bottomSheet.classList.remove('show');
-        window.suppressClick = false;
-      };
-    }
 
     const items = bottomSheetContent.querySelectorAll('.attendance-item');
     let attendanceCount = count;
