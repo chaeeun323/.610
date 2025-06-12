@@ -156,8 +156,6 @@ setTimeout(() => {
 
     if (!alreadyDrawn) {
       showDialogue(i, context);
-    } else {
-      console.log("🔁 대사 중복 출력 방지됨:", first.text);
     }
 
     if (context.skipBtn) context.skipBtn.style.display = 'block';

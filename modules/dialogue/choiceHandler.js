@@ -2,7 +2,6 @@
 
 import { autoUpdateSkipButton } from '../ui/control/skipButtonController.js';
 export function renderChoiceButtons(choices, container, context) {
-  console.log("🟡 선택지 생성 시작", choices);
   container.innerHTML = '';
   container.classList.remove('closing');
 
