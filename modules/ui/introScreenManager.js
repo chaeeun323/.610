@@ -10,6 +10,8 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   const introScreen = document.createElement('div');
   introScreen.id = 'intro-screen';
 
+  let bottomSheet;
+
   const introButton = document.createElement('img');
   introButton.src = 'images/title_botton2.png';
   introButton.alt = '지금 꼬시러 가기!';
@@ -45,6 +47,12 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   const bubbleMessages = ['심심해', '배고파', '보고싶었어', '뽀용뽀용', '뾰쨔쟈'];
 
   clickArea.addEventListener('click', () => {
+    if (
+      (bottomSheet && bottomSheet.classList.contains('show')) ||
+      (context.attendanceSheet && context.attendanceSheet.classList.contains('show'))
+    ) {
+      return;
+    }
     const msg = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
     bubble.textContent = msg;
     bubble.classList.remove('show');
@@ -86,10 +94,9 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     btn.appendChild(labelEl);
     menuGrid.appendChild(btn);
     btn.addEventListener('click', () => {
-      if (label === '출석체크' && context.attendancePopup) {
+      if (label === '출석체크' && context.attendanceSheet) {
         window.suppressClick = true;
-        context.attendancePopup.classList.remove('hidden');
-        context.attendancePopup.style.display = 'flex';
+        context.attendanceSheet.classList.toggle('show');
       } else {
         bottomSheet.classList.toggle('show');
       }
@@ -98,7 +105,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
   startScreen.appendChild(menuWrapper);
 
-  const bottomSheet = document.createElement('div');
+  bottomSheet = document.createElement('div');
   bottomSheet.id = 'bottom-sheet';
   bottomSheet.className = 'bottom-sheet';
   const bottomSheetContent = document.createElement('div');

@@ -1,8 +1,8 @@
 export function setupAttendancePopup(context) {
-  const popup = document.createElement('div');
-  popup.id = 'attendance-popup';
-  popup.className = 'attendance-popup hidden';
-  popup.innerHTML = `
+  const sheet = document.createElement('div');
+  sheet.id = 'attendance-sheet';
+  sheet.className = 'attendance-sheet';
+  sheet.innerHTML = `
     <div class="attendance-box">
       <div class="attendance-header">
         <div class="attendance-title">출석 체크</div>
@@ -15,21 +15,19 @@ export function setupAttendancePopup(context) {
       </div>
     </div>
   `;
-  document.body.appendChild(popup);
-  context.attendancePopup = popup;
+  document.body.appendChild(sheet);
+  context.attendanceSheet = sheet;
 
-  popup.addEventListener('click', (e) => e.stopPropagation());
-
-  const closeBtn = popup.querySelector('#attendance-close');
+  const closeBtn = sheet.querySelector('#attendance-close');
   if (closeBtn) {
     closeBtn.onclick = (e) => {
       e.stopPropagation();
-      popup.style.display = 'none';
+      sheet.classList.remove('show');
       window.suppressClick = false;
     };
   }
 
-  const cells = popup.querySelectorAll('.attendance-cell');
+  const cells = sheet.querySelectorAll('.attendance-cell');
   const stored = JSON.parse(localStorage.getItem('attendanceDays') || '[]');
   cells.forEach((cell, idx) => {
     if (stored.includes(idx + 1)) {
