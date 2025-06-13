@@ -93,7 +93,8 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     btn.appendChild(icon);
     btn.appendChild(labelEl);
     menuGrid.appendChild(btn);
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (label === '출석체크') {
         showAttendance();
       } else if (bottomSheet) {
@@ -107,7 +108,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
   bottomSheet = document.createElement('div');
   bottomSheet.id = 'bottom-sheet';
-  bottomSheet.className = 'bottom-sheet';
+  bottomSheet.className = 'bottom-sheet hidden';
   const bottomSheetContent = document.createElement('div');
   bottomSheetContent.className = 'bottom-sheet-content';
   bottomSheetContent.textContent = '여기에 원하는 내용을 넣으세요!';
@@ -138,12 +139,16 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   }
 
   function hideBottomSheet() {
-    if (bottomSheet) bottomSheet.classList.remove('show');
+    if (bottomSheet) {
+      bottomSheet.classList.remove('show');
+      bottomSheet.classList.add('hidden');
+    }
     window.suppressClick = false;
   }
 
   function showAttendance() {
     window.suppressClick = true;
+    bottomSheet.classList.remove('hidden');
     const count = Number(localStorage.getItem('attendanceCount') || '0');
     const savedBok = Number(localStorage.getItem('bokCount') || '0');
     context.bokCount = savedBok;
