@@ -1474,15 +1474,4 @@ body.dark-mode {
   cursor: pointer;
 }
 
-.reward-popup-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  cursor: pointer;
-}
-
-.reward-popup-close img {
-  width: 20px;
-  height: auto;
-}
 
