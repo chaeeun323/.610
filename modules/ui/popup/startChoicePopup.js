@@ -69,6 +69,12 @@ export function setupStartChoicePopup(context, currentDialogue) {
     hidePopup();
     document.getElementById('main-start-screen').style.display = 'none';
     document.getElementById('game-wrapper').style.display = 'block';
+    // Reset persistent data so a new game truly starts fresh
+    localStorage.removeItem('attendanceCount');
+    context.attendanceCount = 0;
+    localStorage.removeItem('bokCount');
+    context.bokCount = 0;
+    context.updateBokDisplay(context.bokCount);
     context.gameStarted = true;
     if (context.menuBtn) context.menuBtn.style.display = 'block';
     context.indexRef.value = 0;
