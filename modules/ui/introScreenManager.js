@@ -146,6 +146,8 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     window.suppressClick = false;
   }
 
+  let attendanceHandlerAttached = false;
+
   function showAttendance() {
     window.suppressClick = true;
     bottomSheet.classList.remove('hidden');
@@ -174,29 +176,35 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     `;
 
     const items = bottomSheetContent.querySelectorAll('.attendance-item');
-    let attendanceCount = count;
-    // 첫번째 출석은 복 5개, 두번째는 10개(5+5), 세번째는 35개(5+30)
+    const attendanceCount = count;
     const rewards = [5, 10, 35];
     items.forEach((item, idx) => {
       if (idx < attendanceCount) item.classList.add('checked');
     });
-
     const confirmBtn = bottomSheetContent.querySelector('#attendance-confirm');
-    if (confirmBtn) {
-      confirmBtn.onclick = (e) => {
+    if (confirmBtn && attendanceCount >= rewards.length) confirmBtn.disabled = true;
+
+    if (!attendanceHandlerAttached) {
+      attendanceHandlerAttached = true;
+      bottomSheetContent.addEventListener('click', (e) => {
+        const btn = e.target.closest('#attendance-confirm');
+        if (!btn) return;
         e.stopPropagation();
+        let countNow = Number(localStorage.getItem('attendanceCount') || '0');
+        const rewardArr = [5, 10, 35];
+        const itemEls = bottomSheetContent.querySelectorAll('.attendance-item');
         let earned = 0;
-        if (attendanceCount < rewards.length) {
-          items[attendanceCount].classList.add('checked');
-          earned = rewards[attendanceCount];
+        if (countNow < rewardArr.length) {
+          if (itemEls[countNow]) itemEls[countNow].classList.add('checked');
+          earned = rewardArr[countNow];
           context.bokCount += earned;
-          attendanceCount += 1;
-          context.attendanceCount = attendanceCount;
-          localStorage.setItem('attendanceCount', String(attendanceCount));
+          countNow += 1;
+          context.attendanceCount = countNow;
+          localStorage.setItem('attendanceCount', String(countNow));
           localStorage.setItem('bokCount', String(context.bokCount));
           context.updateBokDisplay(context.bokCount);
         }
-        if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
+        if (countNow >= rewardArr.length) btn.disabled = true;
         hideBottomSheet();
         if (rewardOverlay && rewardText) {
           rewardText.textContent = `복 ${earned}개를 받았어요!`;
@@ -204,8 +212,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
           rewardOverlay.style.display = 'flex';
           window.suppressClick = true;
         }
-      };
-      if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
+      });
     }
 
     bottomSheet.classList.add('show');
