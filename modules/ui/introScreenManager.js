@@ -170,7 +170,8 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
     const items = bottomSheetContent.querySelectorAll('.attendance-item');
     let attendanceCount = count;
-    const rewards = [5, 5, 10];
+    // 첫번째 출석은 복 5개, 두번째는 10개(5+5), 세번째는 35개(5+30)
+    const rewards = [5, 10, 35];
     items.forEach((item, idx) => {
       if (idx < attendanceCount) item.classList.add('checked');
     });
@@ -188,11 +189,6 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
           context.attendanceCount = attendanceCount;
           localStorage.setItem('attendanceCount', String(attendanceCount));
           localStorage.setItem('bokCount', String(context.bokCount));
-          if (attendanceCount === rewards.length) {
-            earned = 35;
-            context.bokCount += earned;
-            localStorage.setItem('bokCount', String(context.bokCount));
-          }
           context.updateBokDisplay(context.bokCount);
         }
         if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
