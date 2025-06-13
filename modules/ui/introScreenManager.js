@@ -146,7 +146,14 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     window.suppressClick = false;
   }
 
-  let attendanceHandlerAttached = false;
+  function showReward(earned) {
+    if (rewardOverlay && rewardText) {
+      rewardText.textContent = `복 ${earned}개를 받았어요!`;
+      rewardOverlay.classList.remove('hidden');
+      rewardOverlay.style.display = 'flex';
+      window.suppressClick = true;
+    }
+  }
 
   function showAttendance() {
     window.suppressClick = true;
@@ -182,13 +189,9 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
       if (idx < attendanceCount) item.classList.add('checked');
     });
     const confirmBtn = bottomSheetContent.querySelector('#attendance-confirm');
-    if (confirmBtn && attendanceCount >= rewards.length) confirmBtn.disabled = true;
-
-    if (!attendanceHandlerAttached) {
-      attendanceHandlerAttached = true;
-      bottomSheetContent.addEventListener('click', (e) => {
-        const btn = e.target.closest('#attendance-confirm');
-        if (!btn) return;
+    if (confirmBtn) {
+      if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
+      confirmBtn.onclick = (e) => {
         e.stopPropagation();
         let countNow = Number(localStorage.getItem('attendanceCount') || '0');
         const rewardArr = [5, 10, 35];
@@ -204,15 +207,10 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
           localStorage.setItem('bokCount', String(context.bokCount));
           context.updateBokDisplay(context.bokCount);
         }
-        if (countNow >= rewardArr.length) btn.disabled = true;
+        if (countNow >= rewardArr.length) confirmBtn.disabled = true;
         hideBottomSheet();
-        if (rewardOverlay && rewardText) {
-          rewardText.textContent = `복 ${earned}개를 받았어요!`;
-          rewardOverlay.classList.remove('hidden');
-          rewardOverlay.style.display = 'flex';
-          window.suppressClick = true;
-        }
-      });
+        showReward(earned);
+      };
     }
 
     bottomSheet.classList.add('show');
