@@ -230,9 +230,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
         }
         if (countNow >= rewardArr.length) confirmBtn.disabled = true;
         hideBottomSheet();
-        setTimeout(() => {
-          showReward(earned);
-        }, 300);
+        showReward(earned);
       };
     }
 
