@@ -10,7 +10,7 @@ const domRefs = {
   kakaoOverlay: null,
   overlayImage: null,
   skipBtn: null,
-  saveBtn: null,
+  menuBtn: null,
   answerUi: null,
   answerInput: null,
   submitAnswer: null,
@@ -21,6 +21,9 @@ const domRefs = {
   hintConfirm: null,
   msgBox: null,
   savePopup: null,
+  menuPopup: null,
+  giveBokBtn: null,
+  bokCountEl: null,
 };
 
 export default domRefs;

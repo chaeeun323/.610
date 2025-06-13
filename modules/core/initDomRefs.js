@@ -1,5 +1,5 @@
 export function initDomRefs(context) {
-  context.saveBtn = document.getElementById('save-btn');
+  context.menuBtn = document.getElementById('menu-btn');
   context.gameWrapper = document.getElementById('game-wrapper');
   context.kakaoBox = document.getElementById('kakao-chat-box');
   context.choiceContainer = document.getElementById('choice-container');
@@ -16,4 +16,6 @@ export function initDomRefs(context) {
   context.hintStep2 = document.getElementById('hint-step2');
   context.hintBtn = document.getElementById('hint-btn');
   context.hintConfirm = document.getElementById('hint-confirm');
+  context.giveBokBtn = document.getElementById('give-bok-btn');
+  context.bokCountEl = document.getElementById('bok-count');
 }

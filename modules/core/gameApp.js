@@ -10,6 +10,7 @@ import { ensureSkipButton } from '../ui/control/skipButtonController.js';
 import { showDialogue } from '../dialogue/showDialogue.js';
 import { setupStartChoicePopup } from '../ui/popup/startChoicePopup.js';
 import { setupSavePopup } from '../ui/popup/savePopupManager.js';
+import { setupMenuPopup } from '../ui/popup/menuPopupManager.js';
 import { initDomRefs } from './initDomRefs.js';
 
 export default function initGameApp(context) {
@@ -29,8 +30,8 @@ function startGame() {
   document.getElementById("game-wrapper").style.display = "block";
   context.gameStarted = true;
   context.updateLevelBar(context.indexRef.value, context.currentDialogue);
-if (context.saveBtn) {
-  context.saveBtn.style.display = 'block';
+if (context.menuBtn) {
+  context.menuBtn.style.display = 'block';
 }
   
 context.suppressClick = true;
@@ -79,7 +80,7 @@ window.addEventListener('load', () => {
       }
     }
 
-    context.saveBtn.style.display = 'block';
+    context.menuBtn.style.display = 'block';
   }, context.showDialogue, context);
 
   context.gameWrapper.style.display = 'none';
@@ -87,6 +88,23 @@ window.addEventListener('load', () => {
   const startScreen = document.getElementById('main-start-screen');
   const levelBox = context.createLevelBox();
   startScreen.appendChild(levelBox);
+  context.giveBokBtn = levelBox.querySelector('#give-bok-btn');
+  context.bokCountEl = levelBox.querySelector('#bok-count');
+  context.updateBokDisplay(context.bokCount);
+
+  if (context.giveBokBtn) {
+    context.giveBokBtn.onclick = (e) => {
+      e.stopPropagation();
+      if (context.bokCount > 0) {
+        context.bokCount -= 1;
+        localStorage.setItem('bokCount', String(context.bokCount));
+        context.updateBokDisplay(context.bokCount);
+        context.showPopup('복을 주었습니다!');
+      } else {
+        context.showPopup('복이 부족합니다!');
+      }
+    };
+  }
   if (startScreen) {
     startScreen.style.display = 'none';
   }
@@ -95,13 +113,14 @@ window.addEventListener('load', () => {
 document.addEventListener('DOMContentLoaded', () => {
   initDomRefs(context);
   setupSavePopup(context);
+  setupMenuPopup(context);
   ensureSkipButton(context);
 
   attachMessageListeners({
     kakaoBox: context.kakaoBox,
     showDialogue,
     context,
-    saveBtn: context.saveBtn,
+    saveBtn: context.menuBtn,
     skipBtn: context.skipBtn,
     hintBtn: document.getElementById('hint-button'),
     hintConfirm: document.getElementById('hint-confirm'),

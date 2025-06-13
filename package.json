@@ -1,0 +1,10 @@
+{
+  "name": "kakao-branching-dialogue-game",
+  "version": "1.0.0",
+  "description": "Web-based interactive narrative in the style of a mobile messaging app.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/test.js"
+  }
+}

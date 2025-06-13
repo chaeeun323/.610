@@ -23,6 +23,11 @@ body.dark-mode {
   background-color: #1e1e1e;
 }
 
+/* Utility hidden class */
+.hidden {
+  display: none !important;
+}
+
 @media (max-width: 768px) {
   html {
     -webkit-text-size-adjust: none;
@@ -292,8 +297,9 @@ body.dark-mode {
   left: 0;
   right: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
   padding: 10px;
   z-index: 3;
@@ -557,6 +563,70 @@ body.dark-mode {
   color: #fff;
 }
 
+/* 처음으로 확인창 */
+#home-confirm {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  min-height: 160px;
+  max-height: 280px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  padding: 24px 20px;
+  text-align: center;
+  z-index: 9999;
+  pointer-events: auto;
+  overflow-y: auto;
+}
+
+#home-confirm .hint-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+#home-confirm .hint-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+}
+
+#home-confirm .hint-sub {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+#home-confirm .hint-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+#home-confirm .hint-buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#home-confirm .hint-buttons button:first-child {
+  background: #eee;
+  color: #000;
+}
+
+#home-confirm .hint-buttons button:last-child {
+  background: #000;
+  color: #fff;
+}
+
 #wrong-message {
   position: absolute;
   top: 50%;
@@ -647,7 +717,7 @@ body.dark-mode {
   width: 100vw;
   height: 100vh;
   z-index: 2000;
-  display: flex;
+  display: none; /* shown via JS */
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -683,6 +753,7 @@ body.dark-mode {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 /* 닫기 버튼 */
@@ -714,6 +785,59 @@ body.dark-mode {
 }
 
 .save-slot-btn:hover {
+  background: #3b8dd8;
+}
+
+/* 메뉴 팝업 */
+.menu-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+.menu-popup-box {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  width: 320px; /* keep size consistent with other popups */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  text-align: center;
+}
+.menu-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}
+.menu-popup-close img {
+  width: 20px;
+}
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.menu-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #4da5ff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-family: 'Pretendard', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+.menu-buttons button:hover {
   background: #3b8dd8;
 }
 
@@ -1020,61 +1144,28 @@ body.dark-mode {
   transition: width 0.4s ease;
 }
 
-/* ───── 시작 선택 팝업 ───── */
-#start-choice-popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
+.bok-area {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  z-index: 2000;
-  background: transparent;
-}
-.popup-inner {
-  position: relative;
-  background: white;
-  border-radius: 20px;
-  padding: 24px;
-  width: 320px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  text-align: center;
-}
-.popup-close, .popup-back {
-  position: absolute;
-  top: 12px;
-  cursor: pointer;
-}
-.popup-close {
-  right: 12px;
-}
-.popup-back {
-  left: 12px;
-  display: none;
-}
-.popup-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 16px;
-}
-.slot-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
-/* 요소 숨김 */
-.hidden {
-  display: none !important;
+.bok-count {
+  font-weight: bold;
+  font-size: 14px;
 }
-/* 비활성(투명도 + 클릭 차단) */
-.disabled {
-  opacity: 0.5 !important;
-  pointer-events: none !important;
+
+.give-bok-btn {
+  padding: 4px 8px;
+  background: #f9bfe6;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
 }
+
 
 /* 시작 선택 팝업 전체 */
 #start-choice-popup {
@@ -1146,13 +1237,12 @@ body.dark-mode {
 }
 
 /* 버튼 그룹 스타일 */
-#start-choice-popup .popup-buttons,
-#start-choice-popup .slot-buttons {
+#start-choice-popup .popup-buttons {
   display: flex;
   gap: 12px;
   margin-top: 12px;
 }
-#start-choice-popup button {
+#start-choice-popup .popup-buttons button {
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
@@ -1161,8 +1251,35 @@ body.dark-mode {
   font-size: 14px;
   cursor: pointer;
   transition: background .2s;
+  width: 100%;
+  box-sizing: border-box;
 }
-#start-choice-popup button:hover {
+#start-choice-popup .popup-buttons button:hover {
+  background: #3b8dd8;
+}
+
+/* 불러오기 슬롯 버튼은 저장 슬롯과 동일한 스타일로 */
+#start-choice-popup .slot-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  width: 100%;
+}
+#start-choice-popup .slot-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #4da5ff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Pretendard', sans-serif;
+}
+#start-choice-popup .slot-buttons button:hover {
   background: #3b8dd8;
 }
 
@@ -1170,8 +1287,9 @@ body.dark-mode {
 #start-choice-popup #slot-options {
   display: none;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 12px;
+  width: 100%;
 }
 
 .fade-out {
@@ -1213,7 +1331,7 @@ body.dark-mode {
   background: white;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  box-shadow: none;
   transition: bottom 0.3s ease-in-out;
   z-index: 2000;
   
@@ -1228,3 +1346,130 @@ body.dark-mode {
   overflow-y: auto;
   height: 100%;
 }
+
+/* ───── Attendance Layout ───── */
+
+.attendance-box {
+  width: 90%;
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attendance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.attendance-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.attendance-item {
+  flex: 1;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  text-align: center;
+  background: #f5f5f5;
+}
+
+.attendance-item.checked {
+  background: #bde0fe;
+}
+
+.attendance-bonus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.attendance-bonus-text {
+  font-size: 14px;
+}
+
+.attendance-circles {
+  display: flex;
+  gap: 4px;
+}
+
+.attendance-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.attendance-confirm {
+  align-self: stretch;
+  padding: 8px 16px;
+  width: 100%;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 출석 보상 오버레이 */
+#attendance-reward {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 3000;
+}
+
+.reward-box {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  width: 260px;
+}
+
+.reward-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.reward-img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.reward-text {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.reward-close {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+

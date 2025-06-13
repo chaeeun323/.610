@@ -37,8 +37,18 @@ export function setupStartChoicePopup(context, currentDialogue) {
     </div>
   `;
   document.body.appendChild(startChoicePopup);
+  // Prevent popup interactions from advancing dialogue
+  startChoicePopup.addEventListener('click', (e) => e.stopPropagation());
 
-  const hidePopup = () => { startChoicePopup.style.display = 'none'; };
+  const hidePopup = () => {
+    startChoicePopup.style.display = 'none';
+    startChoicePopup.querySelector('#main-options').style.display = 'block';
+    startChoicePopup.querySelector('#slot-options').style.display = 'none';
+    startChoicePopup.querySelector('#popup-back').style.display = 'none';
+  };
+
+  // ensure popup starts hidden even if CSS fails to load
+  hidePopup();
 
   startChoicePopup.querySelector('#popup-close').onclick = hidePopup;
   startChoicePopup.querySelector('#popup-back').onclick = () => {
@@ -55,12 +65,12 @@ export function setupStartChoicePopup(context, currentDialogue) {
 
   startChoicePopup.querySelector('#start-new-btn').onclick = () => {
     const intro = document.getElementById('intro-screen');
-    if (intro) intro.remove();
+    if (intro) intro.style.display = 'none';
     hidePopup();
     document.getElementById('main-start-screen').style.display = 'none';
     document.getElementById('game-wrapper').style.display = 'block';
     context.gameStarted = true;
-    if (context.saveBtn) context.saveBtn.style.display = 'block';
+    if (context.menuBtn) context.menuBtn.style.display = 'block';
     context.indexRef.value = 0;
     context.currentDialogue = currentDialogue;
     context.showDialogue(context.indexRef.value, context);
@@ -72,11 +82,20 @@ export function setupStartChoicePopup(context, currentDialogue) {
     if (data.theme) applyTheme(data.theme);
     context.currentDialogue = data.dialogue;
     context.indexRef.value = data.index;
+    if (typeof data.bokCount === 'number') {
+      context.bokCount = data.bokCount;
+      localStorage.setItem('bokCount', String(context.bokCount));
+      context.updateBokDisplay(context.bokCount);
+    }
+    if (typeof data.attendanceCount === 'number') {
+      context.attendanceCount = data.attendanceCount;
+      localStorage.setItem('attendanceCount', String(context.attendanceCount));
+    }
     context.saveLoaded = true;
     context.isRestored = true;
 
     const videoEl = document.getElementById('bg-video');
-    if (data.lastVideoIndex > data.lastImageIndex) {
+    if (data.lastVideo && data.lastVideoIndex >= data.lastImageIndex) {
       if (videoEl) {
         videoEl.src = data.lastVideo;
         videoEl.load();
@@ -89,12 +108,21 @@ export function setupStartChoicePopup(context, currentDialogue) {
         context.overlayImage.style.display = 'none';
         context.overlayImage.src = '';
       }
-    } else {
+    } else if (data.lastImage) {
       if (context.gameWrapper) {
         context.gameWrapper.style.background = `url('${data.lastImage}') no-repeat center center`;
         context.gameWrapper.style.backgroundSize = 'cover';
       }
-      if (videoEl) videoEl.style.display = 'none';
+      if (videoEl) {
+        videoEl.style.display = 'none';
+        videoEl.src = '';
+      }
+    } else {
+      if (context.gameWrapper) context.gameWrapper.style.background = '';
+      if (videoEl) {
+        videoEl.style.display = 'none';
+        videoEl.src = '';
+      }
     }
 
     if (data.overlayImageSrc) {
@@ -158,7 +186,7 @@ export function setupStartChoicePopup(context, currentDialogue) {
 
     hidePopup();
     const intro = document.getElementById('intro-screen');
-    if (intro) intro.remove();
+    if (intro) intro.style.display = 'none';
     document.getElementById('main-start-screen').style.display = 'flex';
     document.getElementById('game-wrapper').style.display = 'none';
     context.updateLevelBar(context.indexRef.value, context.currentDialogue);

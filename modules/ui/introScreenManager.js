@@ -10,6 +10,11 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   const introScreen = document.createElement('div');
   introScreen.id = 'intro-screen';
 
+  let bottomSheet;
+
+  context.bokCount = Number(localStorage.getItem('bokCount') || '0');
+  context.attendanceCount = Number(localStorage.getItem('attendanceCount') || '0');
+
   const introButton = document.createElement('img');
   introButton.src = 'images/title_botton2.png';
   introButton.alt = '지금 꼬시러 가기!';
@@ -42,16 +47,23 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   bubble.id = 'intro-bubble';
   startScreen.appendChild(bubble);
 
-  const bubbleMessages = ['심심해', '배고파', '보고싶었어'];
+  const bubbleMessages = ['심심해', '배고파', '보고싶었어', '뽀용뽀용', '뾰쨔쟈'];
+
   clickArea.addEventListener('click', () => {
-    if (bubble.classList.contains('show')) return;
+    if (bottomSheet && bottomSheet.classList.contains('show')) {
+      return;
+    }
     const msg = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
     bubble.textContent = msg;
+    bubble.classList.remove('show');
+    void bubble.offsetWidth; // force reflow so animation can restart
     bubble.classList.add('show');
-    bubble.addEventListener('animationend', function handler() {
+  });
+
+  bubble.addEventListener('animationend', (e) => {
+    if (e.animationName === 'bubble-smoke') {
       bubble.classList.remove('show');
-      bubble.removeEventListener('animationend', handler);
-    });
+    }
   });
 
   const menuWrapper = document.createElement('div');
@@ -81,21 +93,151 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     btn.appendChild(icon);
     btn.appendChild(labelEl);
     menuGrid.appendChild(btn);
-    btn.addEventListener('click', () => {
-      bottomSheet.classList.toggle('show');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (label === '출석체크') {
+        showAttendance();
+      } else if (bottomSheet) {
+        bottomSheet.classList.remove('show');
+        window.suppressClick = false;
+      }
     });
   });
 
   startScreen.appendChild(menuWrapper);
 
-  const bottomSheet = document.createElement('div');
+  bottomSheet = document.createElement('div');
   bottomSheet.id = 'bottom-sheet';
-  bottomSheet.className = 'bottom-sheet';
+  bottomSheet.className = 'bottom-sheet hidden';
   const bottomSheetContent = document.createElement('div');
   bottomSheetContent.className = 'bottom-sheet-content';
   bottomSheetContent.textContent = '여기에 원하는 내용을 넣으세요!';
   bottomSheet.appendChild(bottomSheetContent);
   document.body.appendChild(bottomSheet);
+
+  let rewardOverlay = document.getElementById('attendance-reward');
+  let rewardText = document.getElementById('reward-text');
+  let rewardClose = document.getElementById('reward-close');
+
+  function ensureRewardOverlay() {
+    if (!rewardOverlay) {
+      rewardOverlay = document.createElement('div');
+      rewardOverlay.id = 'attendance-reward';
+      rewardOverlay.className = 'hidden';
+      rewardOverlay.innerHTML = `
+        <div class="reward-box">
+          <div class="reward-title">미션 완료!</div>
+          <img src="images/bok-bag.png" class="reward-img" alt="복주머니">
+          <div id="reward-text" class="reward-text"></div>
+          <button id="reward-close" class="reward-close">확인</button>
+        </div>`;
+      document.body.appendChild(rewardOverlay);
+    }
+
+    rewardText = rewardOverlay.querySelector('#reward-text');
+    rewardClose = rewardOverlay.querySelector('#reward-close');
+
+    rewardOverlay.addEventListener('click', (e) => {
+      if (e.target === rewardOverlay) hideReward();
+    });
+
+    if (rewardClose) {
+      rewardClose.onclick = (e) => {
+        e.stopPropagation();
+        hideReward();
+      };
+    }
+  }
+
+  ensureRewardOverlay();
+
+  function hideReward() {
+    if (rewardOverlay) rewardOverlay.style.display = 'none';
+    if (rewardOverlay) rewardOverlay.classList.add('hidden');
+    window.suppressClick = false;
+  }
+
+  function hideBottomSheet() {
+    if (bottomSheet) {
+      bottomSheet.classList.remove('show');
+      bottomSheet.classList.add('hidden');
+    }
+    window.suppressClick = false;
+  }
+
+  function showReward(earned) {
+    ensureRewardOverlay();
+    if (rewardOverlay && rewardText) {
+      rewardText.textContent = `복 ${earned}개를 받았어요!`;
+      rewardOverlay.classList.remove('hidden');
+      rewardOverlay.style.display = 'flex';
+      window.suppressClick = true;
+    }
+  }
+
+  function showAttendance() {
+    window.suppressClick = true;
+    ensureRewardOverlay();
+    bottomSheet.classList.remove('hidden');
+    const count = Number(localStorage.getItem('attendanceCount') || '0');
+    const savedBok = Number(localStorage.getItem('bokCount') || '0');
+    context.bokCount = savedBok;
+    context.updateBokDisplay(context.bokCount);
+    bottomSheetContent.innerHTML = `
+      <div class="attendance-box">
+        <div class="attendance-title">출석체크</div>
+        <div class="attendance-row">
+          <div class="attendance-item" data-day="1">첫번째출석<br>복5개</div>
+          <div class="attendance-item" data-day="2">두번째출석<br>복5개</div>
+          <div class="attendance-item" data-day="3">세번째출석<br>복5개</div>
+        </div>
+        <div class="attendance-bonus">
+          <div class="attendance-bonus-text">3일연속출석!<br>보너스 복 35개!</div>
+          <div class="attendance-circles">
+            <div class="attendance-circle">1일 출석</div>
+            <div class="attendance-circle">2일 5개</div>
+            <div class="attendance-circle">3일 30개</div>
+          </div>
+        </div>
+        <button id="attendance-confirm" class="attendance-confirm">출석체크하기</button>
+      </div>
+    `;
+
+    const items = bottomSheetContent.querySelectorAll('.attendance-item');
+    const attendanceCount = count;
+    const rewards = [5, 10, 35];
+    items.forEach((item, idx) => {
+      if (idx < attendanceCount) item.classList.add('checked');
+    });
+    const confirmBtn = bottomSheetContent.querySelector('#attendance-confirm');
+    if (confirmBtn) {
+      if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
+      confirmBtn.onclick = (e) => {
+        e.stopPropagation();
+        let countNow = Number(localStorage.getItem('attendanceCount') || '0');
+        const rewardArr = [5, 10, 35];
+        const itemEls = bottomSheetContent.querySelectorAll('.attendance-item');
+        let earned = 0;
+        if (countNow < rewardArr.length) {
+          if (itemEls[countNow]) itemEls[countNow].classList.add('checked');
+          earned = rewardArr[countNow];
+          context.bokCount += earned;
+          countNow += 1;
+          context.attendanceCount = countNow;
+          localStorage.setItem('attendanceCount', String(countNow));
+          localStorage.setItem('bokCount', String(context.bokCount));
+          context.updateBokDisplay(context.bokCount);
+        }
+        if (countNow >= rewardArr.length) confirmBtn.disabled = true;
+        hideBottomSheet();
+        setTimeout(() => {
+          showReward(earned);
+        }, 300);
+      };
+    }
+
+    bottomSheet.classList.add('show');
+  }
 
   const button = document.createElement('img');
   button.src = 'images/title_botton2.png';
@@ -104,6 +246,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
   button.addEventListener('click', function (e) {
     e.stopPropagation();
+    hideBottomSheet();
     document.getElementById("start-choice-popup").style.display = "none";
     document.getElementById("main-start-screen").style.display = "none";
     document.getElementById("game-wrapper").style.display = "block";
@@ -130,7 +273,7 @@ setTimeout(() => {
         hintBtn,
         hintConfirm,
         answerContainer: document.getElementById('answer-ui'),
-        saveBtn: document.getElementById('save-btn'),
+        saveBtn: document.getElementById('menu-btn'),
         skipBtn: document.getElementById('skip-btn'),
         getGameState: () => context.currentDialogue,
         indexRef: context.indexRef,
@@ -152,8 +295,6 @@ setTimeout(() => {
 
     if (!alreadyDrawn) {
       showDialogue(i, context);
-    } else {
-      console.log("🔁 대사 중복 출력 방지됨:", first.text);
     }
 
     if (context.skipBtn) context.skipBtn.style.display = 'block';
