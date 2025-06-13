@@ -23,6 +23,8 @@ This script uses Node's `http` module to serve the project locally without any e
 
 Daily attendance grants in-game "복" points. Progress and your current 복 count are stored in `localStorage` and included when saving and loading game data.
 
+Starting a new game now clears these stored values so attendance rewards and bok points reset.
+
 ## Running Tests
 
 This project includes a small Node-based test suite. Run it with:
