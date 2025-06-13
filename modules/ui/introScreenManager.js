@@ -114,6 +114,29 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   bottomSheet.appendChild(bottomSheetContent);
   document.body.appendChild(bottomSheet);
 
+  const rewardOverlay = document.getElementById('attendance-reward');
+  const rewardText = document.getElementById('reward-text');
+  const rewardClose = document.getElementById('reward-close');
+
+  function hideReward() {
+    if (rewardOverlay) rewardOverlay.style.display = 'none';
+    if (rewardOverlay) rewardOverlay.classList.add('hidden');
+    window.suppressClick = false;
+  }
+
+  if (rewardOverlay) {
+    rewardOverlay.addEventListener('click', (e) => {
+      if (e.target === rewardOverlay) hideReward();
+    });
+  }
+
+  if (rewardClose) {
+    rewardClose.onclick = (e) => {
+      e.stopPropagation();
+      hideReward();
+    };
+  }
+
   function hideBottomSheet() {
     if (bottomSheet) bottomSheet.classList.remove('show');
     window.suppressClick = false;
@@ -156,21 +179,30 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
     if (confirmBtn) {
       confirmBtn.onclick = (e) => {
         e.stopPropagation();
+        let earned = 0;
         if (attendanceCount < rewards.length) {
           items[attendanceCount].classList.add('checked');
-          context.bokCount += rewards[attendanceCount];
+          earned = rewards[attendanceCount];
+          context.bokCount += earned;
           attendanceCount += 1;
           context.attendanceCount = attendanceCount;
           localStorage.setItem('attendanceCount', String(attendanceCount));
           localStorage.setItem('bokCount', String(context.bokCount));
           if (attendanceCount === rewards.length) {
-            context.bokCount += 35;
+            earned = 35;
+            context.bokCount += earned;
             localStorage.setItem('bokCount', String(context.bokCount));
           }
           context.updateBokDisplay(context.bokCount);
         }
         if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
         hideBottomSheet();
+        if (rewardOverlay && rewardText) {
+          rewardText.textContent = `복 ${earned}개를 받았어요!`;
+          rewardOverlay.classList.remove('hidden');
+          rewardOverlay.style.display = 'flex';
+          window.suppressClick = true;
+        }
       };
       if (attendanceCount >= rewards.length) confirmBtn.disabled = true;
     }

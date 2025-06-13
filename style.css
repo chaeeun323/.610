@@ -1424,3 +1424,52 @@ body.dark-mode {
   cursor: pointer;
 }
 
+/* 출석 보상 오버레이 */
+#attendance-reward {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 3000;
+}
+
+.reward-box {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  width: 260px;
+}
+
+.reward-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.reward-img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.reward-text {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.reward-close {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
