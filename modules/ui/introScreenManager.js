@@ -119,24 +119,28 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   let rewardText = document.getElementById('reward-text');
   let rewardClose = document.getElementById('reward-close');
 
-  function createRewardOverlay() {
-    rewardOverlay = document.createElement('div');
-    rewardOverlay.id = 'attendance-reward';
-    rewardOverlay.className = 'hidden';
-    rewardOverlay.innerHTML = `
-      <div class="reward-box">
-        <div class="reward-title">미션 완료!</div>
-        <img src="images/bok-bag.png" class="reward-img" alt="복주머니">
-        <div id="reward-text" class="reward-text"></div>
-        <button id="reward-close" class="reward-close">확인</button>
-      </div>
-    `;
-    document.body.appendChild(rewardOverlay);
+  function ensureRewardOverlay() {
+    if (!rewardOverlay) {
+      rewardOverlay = document.createElement('div');
+      rewardOverlay.id = 'attendance-reward';
+      rewardOverlay.className = 'hidden';
+      rewardOverlay.innerHTML = `
+        <div class="reward-box">
+          <div class="reward-title">미션 완료!</div>
+          <img src="images/bok-bag.png" class="reward-img" alt="복주머니">
+          <div id="reward-text" class="reward-text"></div>
+          <button id="reward-close" class="reward-close">확인</button>
+        </div>`;
+      document.body.appendChild(rewardOverlay);
+    }
+
     rewardText = rewardOverlay.querySelector('#reward-text');
     rewardClose = rewardOverlay.querySelector('#reward-close');
+
     rewardOverlay.addEventListener('click', (e) => {
       if (e.target === rewardOverlay) hideReward();
     });
+
     if (rewardClose) {
       rewardClose.onclick = (e) => {
         e.stopPropagation();
@@ -144,25 +148,13 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
       };
     }
   }
+
+  ensureRewardOverlay();
 
   function hideReward() {
     if (rewardOverlay) rewardOverlay.style.display = 'none';
     if (rewardOverlay) rewardOverlay.classList.add('hidden');
     window.suppressClick = false;
-  }
-
-  if (!rewardOverlay) {
-    createRewardOverlay();
-  } else {
-    rewardOverlay.addEventListener('click', (e) => {
-      if (e.target === rewardOverlay) hideReward();
-    });
-    if (rewardClose) {
-      rewardClose.onclick = (e) => {
-        e.stopPropagation();
-        hideReward();
-      };
-    }
   }
 
   function hideBottomSheet() {
@@ -174,9 +166,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   }
 
   function showReward(earned) {
-    if (!rewardOverlay) {
-      createRewardOverlay();
-    }
+    ensureRewardOverlay();
     if (rewardOverlay && rewardText) {
       rewardText.textContent = `복 ${earned}개를 받았어요!`;
       rewardOverlay.classList.remove('hidden');
@@ -187,6 +177,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
   function showAttendance() {
     window.suppressClick = true;
+    ensureRewardOverlay();
     bottomSheet.classList.remove('hidden');
     const count = Number(localStorage.getItem('attendanceCount') || '0');
     const savedBok = Number(localStorage.getItem('bokCount') || '0');
@@ -238,8 +229,8 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
           context.updateBokDisplay(context.bokCount);
         }
         if (countNow >= rewardArr.length) confirmBtn.disabled = true;
-        hideBottomSheet();
         showReward(earned);
+        hideBottomSheet();
       };
     }
 
