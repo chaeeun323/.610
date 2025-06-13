@@ -1445,6 +1445,7 @@ body.dark-mode {
   padding: 20px;
   text-align: center;
   width: 260px;
+  position: relative;
 }
 
 .reward-title {
@@ -1471,5 +1472,17 @@ body.dark-mode {
   background: #4caf50;
   color: white;
   cursor: pointer;
+}
+
+.reward-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}
+
+.reward-popup-close img {
+  width: 20px;
+  height: auto;
 }
 

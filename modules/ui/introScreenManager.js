@@ -118,6 +118,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
   let rewardOverlay = document.getElementById('attendance-reward');
   let rewardText = document.getElementById('reward-text');
   let rewardClose = document.getElementById('reward-close');
+  let rewardOverlayClose = document.getElementById('reward-overlay-close');
 
   function ensureRewardOverlay() {
     if (!rewardOverlay) {
@@ -126,6 +127,9 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
       rewardOverlay.className = 'hidden';
       rewardOverlay.innerHTML = `
         <div class="reward-box">
+          <div id="reward-overlay-close" class="reward-popup-close">
+            <img src="images/close-icon.png" alt="닫기">
+          </div>
           <div class="reward-title">미션 완료!</div>
           <img src="images/bok-bag.png" class="reward-img" alt="복주머니">
           <div id="reward-text" class="reward-text"></div>
@@ -136,6 +140,7 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
     rewardText = rewardOverlay.querySelector('#reward-text');
     rewardClose = rewardOverlay.querySelector('#reward-close');
+    rewardOverlayClose = rewardOverlay.querySelector('#reward-overlay-close');
 
     rewardOverlay.addEventListener('click', (e) => {
       if (e.target === rewardOverlay) hideReward();
@@ -143,6 +148,12 @@ export function createIntroScreen(startGameCallback, showDialogue, context) {
 
     if (rewardClose) {
       rewardClose.onclick = (e) => {
+        e.stopPropagation();
+        hideReward();
+      };
+    }
+    if (rewardOverlayClose) {
+      rewardOverlayClose.onclick = (e) => {
         e.stopPropagation();
         hideReward();
       };
